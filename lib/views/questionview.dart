@@ -22,7 +22,13 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionState extends State<QuestionPage> {
-
+  onClick(int selected) {
+    // print('okay' + selected.toString());
+    // print(widget.questions[1][1]);
+    if (selected == 1) {
+      
+    }
+  }
 
   Widget build(BuildContext context) {
     List<int> answerOrder = generateOrder(4);
@@ -34,6 +40,6 @@ class _QuestionState extends State<QuestionPage> {
           // the App.build method, and use it to set our appbar title.
           title: Text('Quizlett'),
         ),
-        body: QandA(currentQuestion: currentQuestion, answerOrder: answerOrder));
+        body: QandA(currentQuestion: currentQuestion, answerOrder: answerOrder, btnHandler: onClick));
   }
 }

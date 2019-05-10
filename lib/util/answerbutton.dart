@@ -3,15 +3,10 @@ import 'package:flutter/material.dart';
 class QandA extends StatelessWidget {
   List<String> currentQuestion;
   List<int> answerOrder;
+  var btnHandler;
 
-  QandA({this.currentQuestion, this.answerOrder});
-  onClick(int selected) {
-    // print('okay' + selected.toString());
-    // print(widget.questions[1][1]);
-    if (selected == 1) {
-      
-    }
-  }
+
+  QandA({this.currentQuestion, this.answerOrder, this.btnHandler});
   
   @override
   Widget build(BuildContext context) {
@@ -20,7 +15,7 @@ class QandA extends StatelessWidget {
         child: Container(
             child: RaisedButton(
           child: Text(currentQuestion[answerOrder[i]]),
-          onPressed: () => onClick(answerOrder[i]),
+          onPressed: () => btnHandler(answerOrder[i]),
         )),
       );
     });
