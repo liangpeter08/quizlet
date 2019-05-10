@@ -4,9 +4,10 @@ class QandA extends StatelessWidget {
   List<String> currentQuestion;
   List<int> answerOrder;
   var btnHandler;
+  var selectedButton;
 
 
-  QandA({this.currentQuestion, this.answerOrder, this.btnHandler});
+  QandA({this.currentQuestion, this.answerOrder, this.btnHandler, this.selectedButton});
   
   @override
   Widget build(BuildContext context) {
@@ -14,8 +15,9 @@ class QandA extends StatelessWidget {
       return Center(
         child: Container(
             child: RaisedButton(
+              color: this.selectedButton == i ? answerOrder[i] == 1 ? Colors.green: Colors.red : Colors.grey,
           child: Text(currentQuestion[answerOrder[i]]),
-          onPressed: () => btnHandler(answerOrder[i]),
+          onPressed: () => btnHandler(i),
         )),
       );
     });
