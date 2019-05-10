@@ -1,8 +1,9 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 
-Future<String> readcsv() async {
+Future<List<List<String>>> readcsv() async {
   String a = await rootBundle.loadString('assets/quiz.csv');
-  print(a);
-  return a;
+  List<String> questions = a.split('\n');
+  List<List<String>> items = questions.map((questions) => questions.split(',')).toList();
+  return items;
 }
