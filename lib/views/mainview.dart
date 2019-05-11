@@ -4,7 +4,7 @@ import 'package:new_quizlet/util/populate.dart';
 import '../style/theme.dart' as Theme;
 
 import './questionview.dart';
-import '../util/readcsv.dart';
+import '../util/enums.dart';
 import '../util/populate.dart';
 
 const int TEST_LENGTH = 3;
@@ -12,14 +12,13 @@ const int TEST_LENGTH = 3;
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   void startHandler(context) async {
-    List<List<String>> questions = await readcsv();
     int maxRange = questions.length;
     List<int> selectedQuestions = generateQuestions(TEST_LENGTH, maxRange);
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => QuestionPage(
-                questions: questions, selectedQuestions: selectedQuestions)));
+            builder: (context) =>
+                QuestionPage(selectedQuestions: selectedQuestions)));
   }
 
   @override
@@ -49,15 +48,16 @@ class MyApp extends StatelessWidget {
                     children: [
                   Container(padding: EdgeInsets.only(top: screenHeight / 5)),
                   Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
-                  Container(margin: EdgeInsets.only(top: screenHeight / 30), child:
-                  Text(
-                    'Canadian Citizenship',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontFamily: 'font2',
-                        color: Color(0xFFFFFFFF),
-                        fontSize: 30),
-                  )),
+                  Container(
+                      margin: EdgeInsets.only(top: screenHeight / 30),
+                      child: Text(
+                        'Canadian Citizenship',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'font2',
+                            color: Color(0xFFFFFFFF),
+                            fontSize: 30),
+                      )),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 10),
                       child: MaterialButton(

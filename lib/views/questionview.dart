@@ -6,12 +6,9 @@ import '../util/enums.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
-  final List<List<String>> questions;
   final List<int> selectedQuestions;
 
-  QuestionPage(
-      {this.questions,
-      this.selectedQuestions});
+  QuestionPage({this.selectedQuestions});
   @override
   State<StatefulWidget> createState() {
     return _QuestionState();
@@ -33,7 +30,7 @@ class _QuestionState extends State<QuestionPage> {
     this.selectedAnswer = -1;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-    this.currentQuestion = widget.questions[widget.selectedQuestions[index]];
+    this.currentQuestion = questions[widget.selectedQuestions[index]];
     super.initState();
   }
 
@@ -56,7 +53,7 @@ class _QuestionState extends State<QuestionPage> {
         this.selectedAnswer = -1;
         this.answerOrder = generateOrder(4);
         this.currentQuestion =
-            widget.questions[widget.selectedQuestions[index]];
+            questions[widget.selectedQuestions[index]];
         this.animationState = AnimationState.DEFAULT_STATE;
       });
     }
