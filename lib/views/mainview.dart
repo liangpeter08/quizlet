@@ -38,10 +38,28 @@ class MyApp extends StatelessWidget {
                   stops: [0.0, 1.0],
                   tileMode: TileMode.clamp),
             ),
-            child: Center(
-                child: RaisedButton(
-              child: Text('Begin Test'),
-              onPressed: () => startHandler(context),
-            ))));
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset('assets/logo7medium.png', width: 200.0),
+                  Text(
+                    'Canadian Citizenship\nTest',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25),
+                  ),
+                  Container(
+                      margin: EdgeInsets.only(top: 60),
+                      child: MaterialButton(
+                        color: Color(0xFFFFFFFFF),
+                        elevation: 4.0,
+                        splashColor: Color(0xFFff9999),
+                        child: Text('Begin Test', style: TextStyle(color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
+                        onPressed: () => startHandler(context),
+                      )),
+                ])));
   }
 }
