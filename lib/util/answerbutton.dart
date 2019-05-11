@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:new_quizlet/util/enums.dart';
 
 class QandA extends StatelessWidget {
-  List<String> currentQuestion;
-  List<int> answerOrder;
-  var btnHandler;
-  var selectedButton;
-  bool showCorrect;
+  final List<String> currentQuestion;
+  final List<int> answerOrder;
+  final Function btnHandler;
+  final int selectedButton;
+  final AnimationState animationState;
 
   QandA(
       {this.currentQuestion,
       this.answerOrder,
       this.btnHandler,
       this.selectedButton,
-      this.showCorrect = false});
+      this.animationState});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +25,7 @@ class QandA extends StatelessWidget {
             child: RaisedButton(
           color: this.selectedButton == i
               ? answerOrder[i] == 1 ? Colors.green : Colors.red
-              : (this.showCorrect && answerOrder[i] == 1)
+              : (this.animationState == AnimationState.SHOW_ANSWER && answerOrder[i] == 1)
                   ? Colors.green
                   : Colors.grey,
           child: Text(currentQuestion[answerOrder[i]]),

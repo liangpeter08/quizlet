@@ -2,28 +2,16 @@ import 'package:flutter/material.dart';
 
 import '../util/populate.dart';
 import '../util/answerbutton.dart';
+import '../util/enums.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   List<List<String>> questions;
   List<int> selectedQuestions;
-  int index;
-  int mistakes;
-  int selectedAnswer;
-  List<int> answerOrder;
-  List<String> currentQuestion;
-  bool showCorrect;
 
   QuestionPage(
       {this.questions,
-      this.selectedQuestions,
-      this.index = 0,
-      this.mistakes = 0,
-      this.selectedAnswer = -1,
-      this.showCorrect = false}) {
-    answerOrder = generateOrder(4);
-    currentQuestion = this.questions[this.selectedQuestions[this.index]];
-  }
+      this.selectedQuestions});
   @override
   State<StatefulWidget> createState() {
     return _QuestionState();
@@ -31,27 +19,45 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionState extends State<QuestionPage> {
+  int index;
+  int mistakes;
+  int selectedAnswer;
+  List<int> answerOrder;
+  List<String> currentQuestion;
+  AnimationState animationState;
+
+  @override
+  void initState() {
+    this.index = 0;
+    this.mistakes = 0;
+    this.selectedAnswer = -1;
+    this.animationState = AnimationState.DEFAULT_STATE;
+    this.answerOrder = generateOrder(4);
+    this.currentQuestion = widget.questions[widget.selectedQuestions[index]];
+    super.initState();
+  }
+
   onClick(int selected, int csvColNum) async {
     setState(() {
-      widget.selectedAnswer = selected;
+      this.selectedAnswer = selected;
     });
     await new Future.delayed(const Duration(seconds: 1));
     if (csvColNum != 1) {
       setState(() {
-        widget.showCorrect = true;
-        ++widget.mistakes;
+        this.animationState = AnimationState.SHOW_ANSWER;
+        ++this.mistakes;
       });
     }
     await new Future.delayed(const Duration(seconds: 3));
 
-    if (widget.index + 1 < widget.selectedQuestions.length) {
+    if (this.index + 1 < widget.selectedQuestions.length) {
       setState(() {
-        ++widget.index;
-        widget.selectedAnswer = -1;
-        widget.answerOrder = generateOrder(4);
-        widget.currentQuestion =
-            widget.questions[widget.selectedQuestions[widget.index]];
-        widget.showCorrect = false;
+        ++this.index;
+        this.selectedAnswer = -1;
+        this.answerOrder = generateOrder(4);
+        this.currentQuestion =
+            widget.questions[widget.selectedQuestions[index]];
+        this.animationState = AnimationState.DEFAULT_STATE;
       });
     }
   }
@@ -74,18 +80,18 @@ class _QuestionState extends State<QuestionPage> {
         body: Column(children: <Widget>[
           Row(
             children: <Widget>[
-              Container(margin: EdgeInsets.all(20.0), child: Text('Strikes: ${displayMistakes(widget.mistakes)}', style: TextStyle(fontSize: 20.0))),
+              Container(margin: EdgeInsets.all(20.0), child: Text('Strikes: ${displayMistakes(this.mistakes)}', style: TextStyle(fontSize: 20.0))),
               Expanded(child: Container(margin: EdgeInsets.all(20.0), child: Align(
                   alignment: Alignment.topRight,
-                  child: Text('Total: ${widget.index + 1}/${widget.selectedQuestions.length}', style: TextStyle(fontSize: 20.0)))))
+                  child: Text('Total: ${this.index + 1}/${widget.selectedQuestions.length}', style: TextStyle(fontSize: 20.0)))))
             ],
           ),
           QandA(
-            currentQuestion: widget.currentQuestion,
-            answerOrder: widget.answerOrder,
+            currentQuestion: this.currentQuestion,
+            answerOrder: this.answerOrder,
             btnHandler: onClick,
-            selectedButton: widget.selectedAnswer,
-            showCorrect: widget.showCorrect,
+            selectedButton: this.selectedAnswer,
+            animationState: this.animationState,
           )
         ]));
   }
