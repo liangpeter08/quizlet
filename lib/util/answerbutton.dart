@@ -29,7 +29,7 @@ class QandA extends StatelessWidget {
                   : Colors.grey,
           child: Text(currentQuestion[answerOrder[i]]),
           onPressed: this.selectedButton == -1
-              ? () => btnHandler(i, answerOrder[i])
+              ? () async => await btnHandler(i, answerOrder[i])
               : () {},
         )),
       );
