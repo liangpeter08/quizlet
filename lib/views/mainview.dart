@@ -49,16 +49,17 @@ class MyApp extends StatelessWidget {
                     children: [
                   Container(padding: EdgeInsets.only(top: screenHeight / 5)),
                   Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
+                  Container(margin: EdgeInsets.only(top: screenHeight / 30), child:
                   Text(
                     'Canadian Citizenship',
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                        fontFamily: 'font2',
                         color: Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25),
-                  ),
+                        fontSize: 30),
+                  )),
                   Container(
-                      margin: EdgeInsets.only(top: screenHeight / 5),
+                      margin: EdgeInsets.only(top: screenHeight / 10),
                       child: MaterialButton(
                         color: Color(0xFFFFFFFFF),
                         elevation: 4.0,
@@ -84,7 +85,7 @@ class MyApp extends StatelessWidget {
                           Container(
                             padding: EdgeInsets.only(right: 15),
                             child: Text(
-                              'Quetzal Software',
+                              'Quetzal Labs',
                               style: TextStyle(
                                   color: Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.bold,

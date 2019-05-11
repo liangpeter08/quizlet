@@ -6,8 +6,8 @@ import '../util/enums.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
-  List<List<String>> questions;
-  List<int> selectedQuestions;
+  final List<List<String>> questions;
+  final List<int> selectedQuestions;
 
   QuestionPage(
       {this.questions,
