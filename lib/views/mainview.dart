@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:new_quizlet/util/populate.dart';
 import '../style/theme.dart' as Theme;
 
@@ -23,6 +24,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -38,11 +40,15 @@ class MyApp extends StatelessWidget {
                   stops: [0.0, 1.0],
                   tileMode: TileMode.clamp),
             ),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset('assets/logo7medium.png', width: 200.0),
+            child: Container(
+
+                //color: Color(0xFF00FF00),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                  Container(padding: EdgeInsets.only(top: screenHeight / 5)),
+                  Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
                   Text(
                     'Canadian Citizenship',
                     textAlign: TextAlign.center,
@@ -52,14 +58,41 @@ class MyApp extends StatelessWidget {
                         fontSize: 25),
                   ),
                   Container(
-                      margin: EdgeInsets.only(top: 60),
+                      margin: EdgeInsets.only(top: screenHeight / 5),
                       child: MaterialButton(
                         color: Color(0xFFFFFFFFF),
                         elevation: 4.0,
                         splashColor: Color(0xFFff9999),
-                        child: Text('Begin Test', style: TextStyle(color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
+                        child: Text('Begin Test',
+                            style: TextStyle(
+                                color: Color(0xFFff4d4d),
+                                fontWeight: FontWeight.bold)),
                         onPressed: () => startHandler(context),
                       )),
-                ])));
+                  Container(padding: EdgeInsets.only(top: screenHeight / 5)),
+                  Expanded(
+                      child: Container(
+                          //color: Color(0xFFFFFF00),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                        Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
+                          Container(
+                              //color: Color(0xFF00FF00),
+                              child: Image.asset('assets/logo7medium.png',
+                                  width: 50.0)),
+                          Container(
+                            padding: EdgeInsets.only(right: 15),
+                            child: Text(
+                              'Quetzal Software',
+                              style: TextStyle(
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 12),
+                            ),
+                          ),
+                        ])
+                      ])))
+                ]))));
   }
 }
