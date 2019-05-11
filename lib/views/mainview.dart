@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
                 children: [
                   Image.asset('assets/logo7medium.png', width: 200.0),
                   Text(
-                    'Canadian Citizenship\nTest',
+                    'Canadian Citizenship',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xFFFFFFFF),
