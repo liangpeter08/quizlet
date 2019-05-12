@@ -1,26 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:new_quizlet/util/populate.dart';
 import '../style/theme.dart' as Theme;
 
-import './questionview.dart';
-import '../util/enums.dart';
-import '../util/populate.dart';
-
-const int TEST_LENGTH = 3;
+import '../util/starthandler.dart';
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  void startHandler(context) async {
-    int maxRange = questions.length;
-    List<int> selectedQuestions = generateQuestions(TEST_LENGTH, maxRange);
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) =>
-                QuestionPage(selectedQuestions: selectedQuestions)));
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

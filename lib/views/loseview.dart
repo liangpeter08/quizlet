@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 
+import '../util/starthandler.dart';
 import './questionview.dart';
 
 class LosePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Let\'s Study Harder!')),
       body: Column(children: <Widget>[
+        Container(
+          child: Text('Let\'s Study Harder!'),
+        ),
         Container(
           child: Text('You\'ve made 6 mistakes, the exam only allows for 5'),
         ),
@@ -18,7 +21,7 @@ class LosePage extends StatelessWidget {
             child: Text('Retry',
                 style: TextStyle(
                     color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-            onPressed: () => QuestionPage())
+            onPressed: () => startHandler(context))
       ]),
     );
   }
