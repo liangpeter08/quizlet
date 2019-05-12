@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
+import 'package:flutter/widgets.dart';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -91,16 +93,17 @@ class _QuestionState extends State<QuestionPage> {
                   tileMode: TileMode.clamp),
             ),
             child: Column(children: <Widget>[
-              Container(padding: EdgeInsets.only(top: screenHeight / 50)),
+              Container(margin: EdgeInsets.only(top: screenHeight / 30), child:
               Row(
                 children: <Widget>[
                   Container(
                       margin: EdgeInsets.all(20.0),
                       child: Text('Strikes: ${displayMistakes(this.mistakes)}',
                           style: TextStyle(
-                              fontFamily: 'font2',
+                              fontFamily: 'font1',
                               color: Color(0xFFFFFFFF),
-                              fontSize: 30))),
+                              fontWeight: FontWeight.normal,
+                              fontSize: 16))),
                   Expanded(
                       child: Container(
                           margin: EdgeInsets.all(20.0),
@@ -109,19 +112,32 @@ class _QuestionState extends State<QuestionPage> {
                               child: Text(
                                   'Total: ${this.index + 1}/${widget.selectedQuestions.length}',
                                   style: TextStyle(
-                                      fontFamily: 'font2',
+                                      fontFamily: 'font1',
                                       color: Color(0xFFFFFFFF),
-                                      fontSize: 30))))),
+                                      fontSize: 16))))),
                   Container(padding: EdgeInsets.only(top: screenHeight / 15)),
                 ],
-              ),
-              QandA(
-                currentQuestion: this.currentQuestion,
-                answerOrder: this.answerOrder,
-                btnHandler: onClick,
-                selectedButton: this.selectedAnswer,
-                animationState: this.animationState,
-              )
+              )),
+              Expanded(
+                  child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(
+                          color: Colors.grey,
+                          width: 1.0,
+                          style: BorderStyle.solid,
+                        ),
+                        borderRadius: new BorderRadius.circular(20.0),
+                      ),
+                      child: QandA(
+                        currentQuestion: this.currentQuestion,
+                        answerOrder: this.answerOrder,
+                        btnHandler: onClick,
+                        selectedButton: this.selectedAnswer,
+                        animationState: this.animationState,
+                      )))
             ])));
   }
 }

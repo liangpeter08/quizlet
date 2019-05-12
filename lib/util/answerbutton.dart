@@ -19,47 +19,49 @@ class QandA extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
-      return Center(
-        widthFactor: 1,
-        heightFactor: 1,
-        child: Container(
-            child: MaterialButton(
-          color: this.selectedButton == i
-              ? answerOrder[i] == 1 ? Colors.green : Colors.red
-              : (this.animationState == AnimationState.SHOW_ANSWER &&
-                      answerOrder[i] == 1)
-                  ? Colors.green
-                  : Color(0xFFFFFFFFF),
-          elevation: 4.0,
-          splashColor: Color(0xFFff9999),
-          child: Text(currentQuestion[answerOrder[i]],
-              style: TextStyle(
-                  color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-          onPressed: this.selectedButton == -1
-              ? () async => await btnHandler(i, answerOrder[i])
-              : () {},
-        )),
-      );
+      return SizedBox(
+          width: MediaQuery.of(context).size.width * 80 / 100,
+          child: Container(
+            margin: EdgeInsets.all(10.0),
+            child: RaisedButton(
+              padding: EdgeInsets.all(10.0),
+              color: this.selectedButton == i
+                  ? answerOrder[i] == 1 ? Color(0xFF4fca94) : Color(0xFFe598a5)
+                  : (this.animationState == AnimationState.SHOW_ANSWER &&
+                          answerOrder[i] == 1)
+                      ? Color(0xFF4fca94)
+                      : Color(0xFFf1f2f5),
+              splashColor: Color(0xFFff9999),
+              child: SizedBox(
+                  child: Text(currentQuestion[answerOrder[i]],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'font2',
+                          color: Color(0xFF3a3a3a),
+                          fontWeight: FontWeight.normal))),
+              onPressed: this.selectedButton == -1
+                  ? () async => await btnHandler(i, answerOrder[i])
+                  : () {},
+            ),
+          ));
     });
 
-    Column mutatedButtons = Column(children: <Widget>[
-Center(
-          widthFactor: 1,
-          heightFactor: 1,
-          child: Column(children: <Widget>[
-            Container(
-                margin: EdgeInsets.only(top: 20.0),
+    questionAndAnswer.insert(
+        0,
+        SizedBox(
+            width: MediaQuery.of(context).size.width * 90 / 100,
+            child: Container(
+                margin: EdgeInsets.all(screenHeight / 20),
                 child: Text(currentQuestion[0],
+                    textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'font2',
-                        color: Color(0xFFFFFFFF),
-                        fontSize: 30))),
-            Container(margin: EdgeInsets.only(top: screenHeight / 20)),
-          ])),
-      Row(children: <Widget>[questionAndAnswer[0], questionAndAnswer[1]]),
-      Row(children: <Widget>[questionAndAnswer[2], questionAndAnswer[3]])
-    ]);
-
-    return mutatedButtons;
+                        color: Color(0xFF3a3a3a),
+                        fontSize: 20)))));
+    return FittedBox(
+        fit: BoxFit.fitHeight,
+        child: Container(
+            margin: EdgeInsets.only(bottom: 20),
+            child: Column(children: questionAndAnswer)));
   }
 }
