@@ -25,8 +25,6 @@ class MyApp extends StatelessWidget {
                   tileMode: TileMode.clamp),
             ),
             child: Container(
-
-                //color: Color(0xFF00FF00),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,

@@ -8,7 +8,7 @@ import '../views/questionview.dart';
 void startHandler(context) {
     int maxRange = questions.length;
     List<int> selectedQuestions = generateQuestions(TEST_LENGTH, maxRange);
-    Navigator.push(
+    Navigator.pushReplacement(
         context,
         MaterialPageRoute(
             builder: (context) =>
