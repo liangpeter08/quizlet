@@ -6,6 +6,7 @@ import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
 import '../util/answerbutton.dart';
 import '../util/enums.dart';
+import './winview.dart';
 import './loseview.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -63,6 +64,9 @@ class _QuestionState extends State<QuestionPage> {
         this.currentQuestion = questions[widget.selectedQuestions[index]];
         this.animationState = AnimationState.DEFAULT_STATE;
       });
+    } else {
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WinPage(mistakes: this.mistakes)));
     }
   }
 
