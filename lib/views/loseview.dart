@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
-import './questionview.dart';
+
+const TOTAL_MISTAKES = 5;
 
 class LosePage extends StatelessWidget {
+  final int mistakes;
+  LosePage({this.mistakes});
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -35,7 +38,7 @@ class LosePage extends StatelessWidget {
             ),
             Container(padding: EdgeInsets.only(top: screenHeight / 10)),
             Container(
-              child: Text('You\'ve made 6 mistakes,\nthe exam only allows for 5',
+              child: Text('You\'ve made ${this.mistakes} mistakes,\nthe exam only allows for ' + TOTAL_MISTAKES.toString(),
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'font2',

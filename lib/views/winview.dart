@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
-import './questionview.dart';
 
 class WinPage extends StatelessWidget {
-  int mistakes;
+  final int mistakes;
 
   @override
   WinPage({this.mistakes});

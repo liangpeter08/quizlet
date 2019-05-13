@@ -52,8 +52,8 @@ class _QuestionState extends State<QuestionPage> {
     await new Future.delayed(const Duration(seconds: 2));
 
     if (this.mistakes > 1) {
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => LosePage()));
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => LosePage(mistakes: this.mistakes)));
     }
     if (this.index + 1 < widget.selectedQuestions.length) {
       setState(() {
@@ -64,7 +64,7 @@ class _QuestionState extends State<QuestionPage> {
         this.animationState = AnimationState.DEFAULT_STATE;
       });
     } else {
-      Navigator.push(
+      Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => WinPage(mistakes: this.mistakes)));
     }
   }
