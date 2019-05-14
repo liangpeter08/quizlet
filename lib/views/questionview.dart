@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:better_moment/better_moment.dart';
+import 'dart:async';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -11,6 +13,7 @@ import './loseview.dart';
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final List<int> selectedQuestions;
+  Timer timer;
 
   QuestionPage({this.selectedQuestions});
   @override
@@ -23,19 +26,44 @@ class _QuestionState extends State<QuestionPage> {
   int index;
   int mistakes;
   int selectedAnswer;
+  Moment time;
   List<int> answerOrder;
   List<String> currentQuestion;
   AnimationState animationState;
+
+  void startTimer() {
+    const oneSec = const Duration(seconds: 1);
+    print('here');
+    print(Moment().from(this.time));
+    widget.timer = new Timer.periodic(
+        oneSec,
+        (Timer timer) => setState(() {
+              if (0 < 1) {
+                print(Moment().from(this.time));
+                widget.timer.cancel();
+              } else {
+                //this.time = time - 1;
+                print('hi');
+              }
+            }));
+  }
 
   @override
   void initState() {
     this.index = 0;
     this.mistakes = 0;
     this.selectedAnswer = -1;
+    this.time = Moment();
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
     this.currentQuestion = questions[widget.selectedQuestions[index]];
+    this.startTimer();
     super.initState();
+  }
+
+  void dispose() {
+    widget.timer.cancel();
+    super.dispose();
   }
 
   onClick(int selected, int csvColNum) async {
@@ -53,7 +81,9 @@ class _QuestionState extends State<QuestionPage> {
 
     if (this.mistakes > 1) {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => LosePage(mistakes: this.mistakes)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => LosePage(mistakes: this.mistakes)));
     }
     if (this.index + 1 < widget.selectedQuestions.length) {
       setState(() {
@@ -65,7 +95,9 @@ class _QuestionState extends State<QuestionPage> {
       });
     } else {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => WinPage(mistakes: this.mistakes)));
+          context,
+          MaterialPageRoute(
+              builder: (context) => WinPage(mistakes: this.mistakes)));
     }
   }
 
@@ -79,10 +111,11 @@ class _QuestionState extends State<QuestionPage> {
 
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
         body: Container(
-            width: MediaQuery.of(context).size.width,
+            width: screenWidth,
             height: screenHeight,
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
@@ -96,20 +129,32 @@ class _QuestionState extends State<QuestionPage> {
                   tileMode: TileMode.clamp),
             ),
             child: Column(children: <Widget>[
-              Container(margin: EdgeInsets.only(top: screenHeight / 30), child:
-              Row(
-                children: <Widget>[
-                  Container(
-                      margin: EdgeInsets.all(20.0),
-                      child: Text('Strikes: ${displayMistakes(this.mistakes)}',
-                          style: TextStyle(
-                              fontFamily: 'font1',
-                              color: Color(0xFFFFFFFF),
-                              fontWeight: FontWeight.normal,
-                              fontSize: 16))),
-                  Expanded(
-                      child: Container(
-                          margin: EdgeInsets.all(20.0),
+              Container(
+                  margin: EdgeInsets.only(top: screenHeight / 30),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                          padding: EdgeInsets.all(screenHeight / 40),
+                          width: screenWidth * 0.34,
+                          child: Text(
+                              'Strikes: ${displayMistakes(this.mistakes)}',
+                              style: TextStyle(
+                                  fontFamily: 'font1',
+                                  color: Color(0xFFFFFFFF),
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 16))),
+                      Expanded(
+                          child: Center(
+                              child: Container(
+                                  padding: EdgeInsets.all(screenHeight / 40),
+                                  child: Text('yolo',
+                                      style: TextStyle(
+                                          fontFamily: 'font1',
+                                          color: Color(0xFFFFFFFF),
+                                          fontSize: 16))))),
+                      Container(
+                          padding: EdgeInsets.all(screenHeight / 40),
+                          width: screenWidth * 0.34,
                           child: Align(
                               alignment: Alignment.topRight,
                               child: Text(
@@ -117,10 +162,11 @@ class _QuestionState extends State<QuestionPage> {
                                   style: TextStyle(
                                       fontFamily: 'font1',
                                       color: Color(0xFFFFFFFF),
-                                      fontSize: 16))))),
-                  Container(padding: EdgeInsets.only(top: screenHeight / 15)),
-                ],
-              )),
+                                      fontSize: 16)))),
+                      Container(
+                          padding: EdgeInsets.only(top: screenHeight / 15)),
+                    ],
+                  )),
               Expanded(
                   child: Container(
                       width: MediaQuery.of(context).size.width,
