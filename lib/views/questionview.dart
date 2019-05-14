@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:better_moment/better_moment.dart';
+import 'dart:math';
 import 'dart:async';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
 import '../util/answerbutton.dart';
+import '../util/printtime.dart';
 import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
@@ -26,24 +27,21 @@ class _QuestionState extends State<QuestionPage> {
   int index;
   int mistakes;
   int selectedAnswer;
-  Moment time;
+  int time;
   List<int> answerOrder;
   List<String> currentQuestion;
   AnimationState animationState;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
-    print('here');
-    print(Moment().from(this.time));
     widget.timer = new Timer.periodic(
         oneSec,
         (Timer timer) => setState(() {
-              if (0 < 1) {
-                print(Moment().from(this.time));
+              if (this.time < 1) {
                 widget.timer.cancel();
+                //TO DO: go to end page when times runs out. See if user passes or fails
               } else {
-                //this.time = time - 1;
-                print('hi');
+                this.time = time - 1;
               }
             }));
   }
@@ -53,7 +51,7 @@ class _QuestionState extends State<QuestionPage> {
     this.index = 0;
     this.mistakes = 0;
     this.selectedAnswer = -1;
-    this.time = Moment();
+    this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
     this.currentQuestion = questions[widget.selectedQuestions[index]];
@@ -147,8 +145,7 @@ class _QuestionState extends State<QuestionPage> {
                           child: Center(
                               child: Container(
                                   padding: EdgeInsets.all(screenHeight / 40),
-                                  child: Text('yolo',
-                                      style: TextStyle(
+                                  child: Text(printTime(this.time), style: TextStyle(
                                           fontFamily: 'font1',
                                           color: Color(0xFFFFFFFF),
                                           fontSize: 16))))),
