@@ -18,14 +18,13 @@ class QandA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;    
-    double screenWidth = MediaQuery.of(context).size.width;
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
       return SizedBox(
           width: MediaQuery.of(context).size.width * 80 / 100,
           child: Container(
             margin: EdgeInsets.only(top: 20),
             child: RaisedButton(
-              padding: EdgeInsets.all(screenHeight / 35),
+              padding: EdgeInsets.all(screenHeight / 40),
               shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
               color: this.selectedButton == i
                   ? answerOrder[i] == 1 ? Color(0xFF4fca94) : Color(0xFFe598a5)
@@ -38,6 +37,7 @@ class QandA extends StatelessWidget {
                   child: Text(currentQuestion[answerOrder[i]],
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontSize: TEXT_SIZE,
                           fontFamily: 'font2',
                           color: Color(0xFF3a3a3a),
                           fontWeight: FontWeight.normal))),
@@ -60,7 +60,7 @@ class QandA extends StatelessWidget {
                     style: TextStyle(
                         fontFamily: 'font2',
                         color: Color(0xFF3a3a3a),
-                        fontSize: 20)))));
+                        fontSize: TEXT_SIZE + 10)))));
                              questionAndAnswer.insert(0, Spacer());
  questionAndAnswer.add(Spacer());
     return 
