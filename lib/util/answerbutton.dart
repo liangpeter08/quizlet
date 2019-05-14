@@ -17,14 +17,14 @@ class QandA extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;    
+    double screenWidth = MediaQuery.of(context).size.width;
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
       return SizedBox(
           width: MediaQuery.of(context).size.width * 80 / 100,
           child: Container(
-            margin: EdgeInsets.all(10.0),
+            margin: EdgeInsets.all(5),
             child: RaisedButton(
-              padding: EdgeInsets.all(10.0),
               color: this.selectedButton == i
                   ? answerOrder[i] == 1 ? Color(0xFF4fca94) : Color(0xFFe598a5)
                   : (this.animationState == AnimationState.SHOW_ANSWER &&
@@ -45,23 +45,29 @@ class QandA extends StatelessWidget {
             ),
           ));
     });
-
+    // questionAndAnswer.insert(0,Expanded(child:Container()));
     questionAndAnswer.insert(
         0,
         SizedBox(
-            width: MediaQuery.of(context).size.width * 90 / 100,
-            child: Container(
-                margin: EdgeInsets.all(screenHeight / 20),
+          width: MediaQuery.of(context).size.width * 90 / 100,
+          child:
+       Container(
+                margin: EdgeInsets.all(screenWidth / 20),
                 child: Text(currentQuestion[0],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'font2',
                         color: Color(0xFF3a3a3a),
                         fontSize: 20)))));
-    return FittedBox(
-        fit: BoxFit.fitHeight,
-        child: Container(
+
+    return 
+    FittedBox(
+        fit: BoxFit.contain,
+        child: 
+        Container(
             margin: EdgeInsets.only(bottom: 20),
-            child: Column(children: questionAndAnswer)));
+            child: Column(children: questionAndAnswer)
+            )
+            );
   }
 }
