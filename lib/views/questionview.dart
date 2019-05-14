@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'dart:math';
 import 'dart:async';
 
 import '../style/theme.dart' as Theme;
@@ -14,7 +13,6 @@ import './loseview.dart';
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final List<int> selectedQuestions;
-  Timer timer;
 
   QuestionPage({this.selectedQuestions});
   @override
@@ -28,17 +26,18 @@ class _QuestionState extends State<QuestionPage> {
   int mistakes;
   int selectedAnswer;
   int time;
+  Timer timer;
   List<int> answerOrder;
   List<String> currentQuestion;
   AnimationState animationState;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
-    widget.timer = new Timer.periodic(
+    this.timer = new Timer.periodic(
         oneSec,
         (Timer timer) => setState(() {
               if (this.time < 1) {
-                widget.timer.cancel();
+                this.timer.cancel();
                 //TO DO: go to end page when times runs out. See if user passes or fails
               } else {
                 this.time = time - 1;
@@ -60,7 +59,7 @@ class _QuestionState extends State<QuestionPage> {
   }
 
   void dispose() {
-    widget.timer.cancel();
+    this.timer.cancel();
     super.dispose();
   }
 
@@ -144,11 +143,22 @@ class _QuestionState extends State<QuestionPage> {
                       Expanded(
                           child: Center(
                               child: Container(
-                                  padding: EdgeInsets.all(screenHeight / 40),
-                                  child: Text(printTime(this.time), style: TextStyle(
-                                          fontFamily: 'font1',
+                                  padding: EdgeInsets.all(screenHeight / 80),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Icon(
+                                          IconData(0xe192,
+                                              fontFamily: 'MaterialIcons'),
                                           color: Color(0xFFFFFFFF),
-                                          fontSize: 16))))),
+                                        ),
+                                        Text(printTime(this.time),
+                                            style: TextStyle(
+                                                fontFamily: 'font1',
+                                                color: Color(0xFFFFFFFF),
+                                                fontSize: 16)),
+                                      ])))),
                       Container(
                           padding: EdgeInsets.all(screenHeight / 40),
                           width: screenWidth * 0.34,

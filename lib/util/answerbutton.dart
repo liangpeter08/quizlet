@@ -23,8 +23,10 @@ class QandA extends StatelessWidget {
       return SizedBox(
           width: MediaQuery.of(context).size.width * 80 / 100,
           child: Container(
-            margin: EdgeInsets.all(5),
+            margin: EdgeInsets.only(top: 20),
             child: RaisedButton(
+              padding: EdgeInsets.all(screenHeight / 35),
+              shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(10.0)),
               color: this.selectedButton == i
                   ? answerOrder[i] == 1 ? Color(0xFF4fca94) : Color(0xFFe598a5)
                   : (this.animationState == AnimationState.SHOW_ANSWER &&
@@ -45,29 +47,30 @@ class QandA extends StatelessWidget {
             ),
           ));
     });
-    // questionAndAnswer.insert(0,Expanded(child:Container()));
+    questionAndAnswer.insert(0,Spacer());
     questionAndAnswer.insert(
         0,
         SizedBox(
           width: MediaQuery.of(context).size.width * 90 / 100,
           child:
        Container(
-                margin: EdgeInsets.all(screenWidth / 20),
+            //    margin: EdgeInsets.all(screenWidth / 20),
                 child: Text(currentQuestion[0],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontFamily: 'font2',
                         color: Color(0xFF3a3a3a),
                         fontSize: 20)))));
-
+                             questionAndAnswer.insert(0, Spacer());
+ questionAndAnswer.add(Spacer());
     return 
-    FittedBox(
-        fit: BoxFit.contain,
-        child: 
+    // FittedBox(
+    //     fit: BoxFit.contain,
+    //     child: 
         Container(
             margin: EdgeInsets.only(bottom: 20),
             child: Column(children: questionAndAnswer)
-            )
+            // )
             );
   }
 }
