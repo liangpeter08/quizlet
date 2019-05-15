@@ -32,7 +32,7 @@ class QandA extends StatelessWidget {
               Container(
             margin: EdgeInsets.only(top: 20),
             child: RaisedButton(
-              padding: EdgeInsets.all(screenHeight / 40),
+              padding: EdgeInsets.all(screenHeight / 60),
               shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(10.0)),
               color: this.selectedButton == i
