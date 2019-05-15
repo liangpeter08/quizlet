@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/widgets.dart';
 import 'dart:async';
-import 'dart:io';
+import 'package:firebase_admob/firebase_admob.dart';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -10,6 +11,7 @@ import '../util/printtime.dart';
 import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
+import '../util/adInfo.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
@@ -137,10 +139,19 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
+    myBanner
+      ..show(
+        // Positions the banner ad 60 pixels from the bottom of the screen
+        anchorOffset: 0.0,
+        // Banner Position
+        anchorType: AnchorType.bottom,
+      );
+
     return Scaffold(
         body: Container(
             width: screenWidth,
             height: screenHeight,
+            padding: EdgeInsets.only(bottom: 50),
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
