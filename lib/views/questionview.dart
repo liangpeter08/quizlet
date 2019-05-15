@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
+import 'dart:io'; 
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -21,7 +22,7 @@ class QuestionPage extends StatefulWidget {
   }
 }
 
-class _QuestionState extends State<QuestionPage> {
+class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   int index;
   int mistakes;
   int selectedAnswer;
@@ -30,6 +31,7 @@ class _QuestionState extends State<QuestionPage> {
   List<int> answerOrder;
   List<String> currentQuestion;
   AnimationState animationState;
+  AnimationController fadeAnimationController;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -54,12 +56,15 @@ class _QuestionState extends State<QuestionPage> {
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
     this.currentQuestion = questions[widget.selectedQuestions[index]];
+    this.fadeAnimationController = AnimationController(vsync: this, duration: new Duration(seconds: 1));
+    this.fadeAnimationController.forward();
     this.startTimer();
     super.initState();
   }
 
   void dispose() {
     this.timer.cancel();
+    this.fadeAnimationController.dispose();
     super.dispose();
   }
 
@@ -67,7 +72,7 @@ class _QuestionState extends State<QuestionPage> {
     setState(() {
       this.selectedAnswer = selected;
     });
-    await new Future.delayed(const Duration(seconds: 1));
+    // await new Future.delayed(const Duration(seconds: 1));
     if (csvColNum != 1) {
       setState(() {
         this.animationState = AnimationState.SHOW_ANSWER;
@@ -75,7 +80,6 @@ class _QuestionState extends State<QuestionPage> {
       });
     }
     await new Future.delayed(const Duration(seconds: 2));
-
     if (this.mistakes > 1) {
       Navigator.pushReplacement(
           context,
@@ -90,6 +94,12 @@ class _QuestionState extends State<QuestionPage> {
         this.currentQuestion = questions[widget.selectedQuestions[index]];
         this.animationState = AnimationState.DEFAULT_STATE;
       });
+      // this.fadeAnimationController.forward();
+      if(this.fadeAnimationController != null) {
+        this.fadeAnimationController.reset();
+        // await new Future.delayed(const Duration(seconds: 1));
+        this.fadeAnimationController.forward();
+      }
     } else {
       Navigator.pushReplacement(
           context,
@@ -193,6 +203,7 @@ class _QuestionState extends State<QuestionPage> {
                         btnHandler: onClick,
                         selectedButton: this.selectedAnswer,
                         animationState: this.animationState,
+                        animationController: this.fadeAnimationController,
                       )))
             ])));
   }

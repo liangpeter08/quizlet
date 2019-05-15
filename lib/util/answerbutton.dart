@@ -7,19 +7,23 @@ class QandA extends StatelessWidget {
   final Function btnHandler;
   final int selectedButton;
   final AnimationState animationState;
+  final AnimationController animationController;
 
   QandA(
       {this.currentQuestion,
       this.answerOrder,
       this.btnHandler,
       this.selectedButton,
-      this.animationState});
+      this.animationState,
+      this.animationController});
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;    
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
-      return SizedBox(
+      return 
+
+        SizedBox(
           width: MediaQuery.of(context).size.width * 80 / 100,
           child: Container(
             margin: EdgeInsets.only(top: 20),
@@ -45,7 +49,8 @@ class QandA extends StatelessWidget {
                   ? () async => await btnHandler(i, answerOrder[i])
                   : () {},
             ),
-          ));
+          )
+          );
     });
     questionAndAnswer.insert(0,Spacer());
     questionAndAnswer.insert(
@@ -64,13 +69,13 @@ class QandA extends StatelessWidget {
                              questionAndAnswer.insert(0, Spacer());
  questionAndAnswer.add(Spacer());
     return 
-    // FittedBox(
-    //     fit: BoxFit.contain,
-    //     child: 
+      FadeTransition(
+        opacity: CurvedAnimation(parent: this.animationController, curve: Curves.easeOut),
+        child: 
         Container(
             margin: EdgeInsets.only(bottom: 20),
             child: Column(children: questionAndAnswer)
             // )
-            );
+            ));
   }
 }
