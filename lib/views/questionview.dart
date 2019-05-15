@@ -94,10 +94,10 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         ++this.mistakes;
       });
     }
-    await new Future.delayed(const Duration(seconds: 2));
+    await new Future.delayed(const Duration(seconds: 1));
     if(!this.mounted) return;
     
-    if (this.mistakes > 1) {
+    if (this.mistakes == 5) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -166,7 +166,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                   fontFamily: 'font1',
                                   color: Color(0xFFFFFFFF),
                                   fontWeight: FontWeight.normal,
-                                  fontSize: 16))),
+                                  fontSize: 16), maxLines: 1,)),
                       Expanded(
                           child: Center(
                               child: Container(
