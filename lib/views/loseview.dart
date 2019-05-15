@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
+import '../util/enums.dart';
 
 const TOTAL_MISTAKES = 5;
 
 class LosePage extends StatelessWidget {
   final int mistakes;
-  LosePage({this.mistakes});
+  final int index;
+  final String reason; //should only be 'timed' or 'mistakes'
+  LosePage({this.mistakes, this.index, this.reason});
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -38,7 +41,11 @@ class LosePage extends StatelessWidget {
             ),
             Container(padding: EdgeInsets.only(top: screenHeight / 10)),
             Container(
-              child: Text('You\'ve made ${this.mistakes} mistakes,\nthe exam only allows for ' + TOTAL_MISTAKES.toString(),
+              child: Text(
+                  this.reason == 'mistakes'
+                      ? 'You\'ve made ${this.mistakes} mistakes,\nthe exam only allows for ' +
+                          TOTAL_MISTAKES.toString()
+                      : 'Your score was ${(index - mistakes)} out of $PASSING_GRADE.\nThe required passing grade is 75%',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'font2',

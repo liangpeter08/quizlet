@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
+import '../util/enums.dart';
 
 class WinPage extends StatelessWidget {
   final int mistakes;
@@ -38,7 +39,7 @@ class WinPage extends StatelessWidget {
             ),
             Container(padding: EdgeInsets.only(top: screenHeight / 10)),
             Container(
-              child: Text('Your score was ${(20 - mistakes)} out of 20. Keep Studying! Remember, practice makes perfect!',
+              child: Text('Your score was ${(PASSING_GRADE - mistakes)} out of 20. Keep Studying! Remember, practice makes perfect!',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                       fontFamily: 'font2',
