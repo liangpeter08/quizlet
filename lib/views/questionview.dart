@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
-import 'dart:io'; 
+import 'dart:io';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -41,6 +41,20 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
               if (this.time < 1) {
                 this.timer.cancel();
                 //TO DO: go to end page when times runs out. See if user passes or fails
+                if (((index - mistakes) / PASSING_GRADE).toDouble() > PASSING_PERCENTAGE) {
+                  //win scenario
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              WinPage(mistakes: this.mistakes)));
+                } else {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              LosePage(mistakes: this.mistakes, index:this.index, reason:'timed out',)));
+                }
               } else {
                 this.time = time - 1;
               }
@@ -56,7 +70,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
     this.currentQuestion = questions[widget.selectedQuestions[index]];
-    this.fadeAnimationController = AnimationController(vsync: this, duration: new Duration(seconds: 1));
+    this.fadeAnimationController =
+        AnimationController(vsync: this, duration: new Duration(seconds: 1));
     this.fadeAnimationController.forward();
     this.startTimer();
     super.initState();
@@ -86,7 +101,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => LosePage(mistakes: this.mistakes)));
+              builder: (context) => LosePage(mistakes: this.mistakes, index:this.index, reason: 'mistakes')));
     }
     if (this.index + 1 < widget.selectedQuestions.length) {
       setState(() {
@@ -97,7 +112,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         this.animationState = AnimationState.DEFAULT_STATE;
       });
       // this.fadeAnimationController.forward();
-      if(this.fadeAnimationController != null) {
+      if (this.fadeAnimationController != null) {
         this.fadeAnimationController.reset();
         // await new Future.delayed(const Duration(seconds: 1));
         this.fadeAnimationController.forward();
