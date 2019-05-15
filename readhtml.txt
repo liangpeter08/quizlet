@@ -1,0 +1,14 @@
+
+scrape
+-----
+var b = [];
+var bank = $('#quizReview .question-container').map(function(item) { var question = $('#quizReview .question-container')[item]; return b.push([question.getElementsByClassName('question')[0].innerText, question.getElementsByClassName('correct')[0].parentElement.getElementsByTagName('label')[0].innerText, question.getElementsByClassName('incorrect')[0].parentElement.getElementsByTagName('label')[0].innerText, question.getElementsByClassName('incorrect')[1].parentElement.getElementsByTagName('label')[0].innerText, question.getElementsByClassName('incorrect')[2].parentElement.getElementsByTagName('label')[0].innerText]);});
+b.join('\n');
+
+
+filter
+copy csv
+var a = `copied string`
+var d = a.split('\n')
+bar e = [];
+d.map(function(item) { if(!e.includes(item)) {e.push(item);}));

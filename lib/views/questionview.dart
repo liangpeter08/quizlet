@@ -80,6 +80,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
       });
     }
     await new Future.delayed(const Duration(seconds: 2));
+    if(!this.mounted) return;
+    
     if (this.mistakes > 1) {
       Navigator.pushReplacement(
           context,
