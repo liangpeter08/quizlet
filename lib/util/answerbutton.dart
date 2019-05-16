@@ -41,9 +41,9 @@ class QandA extends StatelessWidget {
                           answerOrder[i] == 1)
                       ? Color(0xFF4fca94)
                       : Color(0xFFf1f2f5),
-              splashColor: Color(0xFFff9999),
+              splashColor: Color(0xFFbdc3cc),
               child: SizedBox(
-                  height: screenHeight * 0.045,
+                  height: screenHeight * 0.055,
                   child: Container(alignment: Alignment.center,
                   child: AutoSizeText(
                     currentQuestion[answerOrder[i]],

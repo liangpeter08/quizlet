@@ -63,13 +63,7 @@ class LosePage extends StatelessWidget {
                     style: TextStyle(
                         color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
                 onPressed: () {
-                  startHandler(context);
-                  myInterstitial
-                  ..load()
-                  ..show(
-                    anchorType: AnchorType.bottom,
-                    anchorOffset: 0.0,
-                  );
+                  startHandler(context, skipAd: false);
                   })
           ])),
     );

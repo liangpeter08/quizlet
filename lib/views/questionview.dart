@@ -75,7 +75,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
     this.fadeAnimationController.forward();
     this.startTimer();
-    FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3370394751776686~7650142851');
+    myBanner..load();
     super.initState();
   }
 
@@ -140,7 +140,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     double screenWidth = MediaQuery.of(context).size.width;
 
     myBanner
-    ..load()
       ..show(
         // Positions the banner ad 60 pixels from the bottom of the screen
         anchorOffset: 0.0,

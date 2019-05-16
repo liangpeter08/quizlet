@@ -3,6 +3,8 @@ import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
 import '../util/enums.dart';
+import '../util/adInfo.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 
 class WinPage extends StatelessWidget {
   final int mistakes;
@@ -54,7 +56,7 @@ class WinPage extends StatelessWidget {
                 child: Text('Retry',
                     style: TextStyle(
                         color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-                onPressed: () => startHandler(context))
+                onPressed: () => startHandler(context, skipAd: false),) 
           ])),
     );
   }

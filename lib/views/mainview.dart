@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
                             style: TextStyle(
                                 color: Color(0xFFff4d4d),
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => startHandler(context),
+                        onPressed: () => startHandler(context, skipAd: true),
                       )),
                   Container(padding: EdgeInsets.only(top: screenHeight / 5)),
                   Expanded(
