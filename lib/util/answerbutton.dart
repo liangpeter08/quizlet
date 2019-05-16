@@ -88,7 +88,6 @@ class QandA extends StatelessWidget {
             child: Container(
                 margin: EdgeInsets.only(bottom: 20),
                 child: Column(children: <Widget>[
-                  Spacer(),
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 90 / 100,
                       height: screenHeight * 0.25,
@@ -102,9 +101,7 @@ class QandA extends StatelessWidget {
                                   color: Color(0xFF3a3a3a),
                                   fontSize: TEXT_SIZE + 10),
                                   maxLines: 3,))),
-                  Spacer(),
-                  Column(children: questionAndAnswer),
-                  Spacer()
+                  Expanded(child: Column(children: questionAndAnswer)),
                 ]
                     // )
                     ))
