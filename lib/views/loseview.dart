@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
+import 'package:firebase_admob/firebase_admob.dart';
+import '../util/adInfo.dart';
 import '../util/enums.dart';
 
 const TOTAL_MISTAKES = 5;
@@ -60,7 +62,15 @@ class LosePage extends StatelessWidget {
                 child: Text('Retry',
                     style: TextStyle(
                         color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-                onPressed: () => startHandler(context))
+                onPressed: () {
+                  startHandler(context);
+                  myInterstitial
+                  ..load()
+                  ..show(
+                    anchorType: AnchorType.bottom,
+                    anchorOffset: 0.0,
+                  );
+                  })
           ])),
     );
   }
