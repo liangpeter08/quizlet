@@ -20,7 +20,8 @@ BannerAd myBanner = BannerAd(
   },
 );
 
-InterstitialAd myInterstitial = InterstitialAd(
+InterstitialAd myInterstitial() {
+  return InterstitialAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
@@ -31,3 +32,4 @@ InterstitialAd myInterstitial = InterstitialAd(
     print("InterstitialAd event is $event");
   },
 );
+}

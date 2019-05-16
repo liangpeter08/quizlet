@@ -15,8 +15,10 @@ import '../util/adInfo.dart';
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final List<int> selectedQuestions;
+  final bool skipAd;
 
-  QuestionPage({this.selectedQuestions});
+
+  QuestionPage({this.selectedQuestions, this.skipAd});
   @override
   State<StatefulWidget> createState() {
     return _QuestionState();
@@ -32,6 +34,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<int> answerOrder;
   List<String> currentQuestion;
   AnimationState animationState;
+  InterstitialAd myAd;
   AnimationController fadeAnimationController;
 
   void startTimer() {
@@ -76,12 +79,21 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.fadeAnimationController.forward();
     this.startTimer();
     myBanner..load();
+    myAd = myInterstitial();
+    if(!widget.skipAd) {
+      myAd
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+        anchorOffset: 0.0,
+      );
+    }
     super.initState();
   }
 
   void dispose() {
     this.timer.cancel();
-    this.fadeAnimationController.dispose();
+    this.fadeAnimationController.dispose(); 
     super.dispose();
   }
 
