@@ -4,9 +4,21 @@ import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
 
-class MyApp extends StatelessWidget {
-  
+class MyApp extends StatefulWidget {
   @override
+  State<StatefulWidget> createState() {
+    return _MyApp();
+  }
+}
+
+class _MyApp extends State<MyApp> {
+  String province;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
@@ -42,7 +54,30 @@ class MyApp extends StatelessWidget {
                             fontSize: 30),
                       )),
                   Container(
-                      margin: EdgeInsets.only(top: screenHeight / 10),
+                      margin: EdgeInsets.only(top: screenHeight / 20),
+                      child: DropdownButton<String>(
+                          value: this.province,
+                          style: TextStyle (color: Colors.white),
+                          items: <String>[
+                            'Alberta',
+                            'British Columbia',
+                            'Manitoba',
+                            'Ontario'
+                          ].map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value, style: TextStyle(
+                                fontWeight: FontWeight.bold)),
+                            );
+                          }).toList(),
+                          onChanged: (selectedProvince) {
+                            print('$selectedProvince');
+                            setState(() {province = selectedProvince;})
+                            ;
+                          },
+                          hint: Text('Select a Province'))),
+                  Container(
+                      margin: EdgeInsets.only(top: screenHeight / 20),
                       child: MaterialButton(
                         color: Color(0xFFFFFFFFF),
                         elevation: 4.0,
