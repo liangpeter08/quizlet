@@ -45,6 +45,9 @@ flutter:
   uses-material-design: true
   assets:
     - assets/quiz.csv
+    - assets/Alberta.csv
+    - assets/Ontario.csv
+
     - assets/logo7medium.png
     - assets/logo6medium.png
     - assets/mapleleaf.png

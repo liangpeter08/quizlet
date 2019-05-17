@@ -21,6 +21,7 @@ class QandA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    if( this.currentQuestion.length == 0) return Container();
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
       return Container(
           width: MediaQuery.of(context).size.width * 80 / 100,

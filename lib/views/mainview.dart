@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:new_quizlet/util/enums.dart';
 import '../style/theme.dart' as Themes;
 
 import '../util/starthandler.dart';
@@ -56,9 +57,9 @@ class _MyApp extends State<MyApp> {
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 20),
                       child:  Theme(
-                        data: Theme.of(context).copyWith(canvasColor: Color(0xFFff4d4d)),
+                        data: Theme.of(context).copyWith(canvasColor: Color(0xFFff4d4d), brightness: Brightness.dark, ),
                         child: DropdownButton<String>(
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.white,),
                           value: this.province,
                           items: <String>[
                             'Alberta',
@@ -68,15 +69,14 @@ class _MyApp extends State<MyApp> {
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value,               style: TextStyle(color: Colors.white)),
+                              child: Center(child: Text(value, textAlign: TextAlign.center, style: TextStyle(color: Colors.white))),
                             );
                           }).toList(),
-                          onChanged: (selectedProvince) {
-                            print('$selectedProvince');
+                          onChanged: (selectedProvince) { mySelectedProvince = selectedProvince;
                             setState(() {province = selectedProvince;})
                             ;
                           },
-                          hint: Text('Select a Province',style: TextStyle(color: Colors.white) )))),
+                          hint: Text('Select a Province',style: TextStyle(color: Colors.white), textAlign: TextAlign.center, )))),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 20),
                       child: MaterialButton(

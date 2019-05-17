@@ -11,14 +11,15 @@ import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
 import '../util/adInfo.dart';
+import '../util/readcsv.dart';
+
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
-  final List<int> selectedQuestions;
   final bool skipAd;
 
 
-  QuestionPage({this.selectedQuestions, this.skipAd});
+  QuestionPage({this.skipAd});
   @override
   State<StatefulWidget> createState() {
     return _QuestionState();
@@ -32,6 +33,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   int time;
   Timer timer;
   List<int> answerOrder;
+  List<int> selectedQuestions;
   List<String> currentQuestion;
   AnimationState animationState;
   InterstitialAd myAd;
@@ -70,10 +72,22 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.index = 0;
     this.mistakes = 0;
     this.selectedAnswer = -1;
+    this.selectedQuestions = List<int>();
+    this.currentQuestion = List<String>();
     this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-    this.currentQuestion = questions[widget.selectedQuestions[index]];
+    readcsv(mySelectedProvince).then((retVal){
+      setState(() {
+              questions = retVal;
+      int maxRange = questions.length;
+    this.selectedQuestions = generateQuestions(TEST_LENGTH, maxRange);
+    this.currentQuestion = questions[selectedQuestions[index]];   
+      });
+      });
+    
+ 
+
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
     this.fadeAnimationController.forward();
@@ -117,12 +131,12 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
           MaterialPageRoute(
               builder: (context) => LosePage(mistakes: this.mistakes, index:this.index, reason: 'mistakes')));
     }
-    if (this.index + 1 < widget.selectedQuestions.length) {
+    if (this.index + 1 < this.selectedQuestions.length) {
       setState(() {
         ++this.index;
         this.selectedAnswer = -1;
         this.answerOrder = generateOrder(4);
-        this.currentQuestion = questions[widget.selectedQuestions[index]];
+        this.currentQuestion = questions[this.selectedQuestions[index]];
         this.animationState = AnimationState.DEFAULT_STATE;
       });
       // this.fadeAnimationController.forward();
@@ -215,7 +229,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                           child: Align(
                               alignment: Alignment.topRight,
                               child: Text(
-                                  'Total: ${this.index + 1}/${widget.selectedQuestions.length}',
+                                  'Total: ${this.index + 1}/${this.selectedQuestions.length}',
                                   style: TextStyle(
                                       fontFamily: 'font1',
                                       color: Color(0xFFFFFFFF),

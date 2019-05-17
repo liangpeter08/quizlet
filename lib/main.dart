@@ -4,12 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 
-import './util/readcsv.dart';
 import './views/mainview.dart';
-import './util/enums.dart';
 
 void main() async {
-  questions = await readcsv();
   FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3370394751776686~7650142851');
         SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
