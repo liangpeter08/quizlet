@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../style/theme.dart' as Theme;
+import '../style/theme.dart' as Themes;
 
 import '../util/starthandler.dart';
 
@@ -28,8 +28,8 @@ class _MyApp extends State<MyApp> {
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
-                    Theme.Colors.mainPageStart,
-                    Theme.Colors.mainPageEnd,
+                    Themes.Colors.mainPageStart,
+                    Themes.Colors.mainPageEnd,
                   ],
                   begin: const FractionalOffset(0.0, 0.0),
                   end: const FractionalOffset(1.0, 1.0),
@@ -55,9 +55,11 @@ class _MyApp extends State<MyApp> {
                       )),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 20),
-                      child: DropdownButton<String>(
+                      child:  Theme(
+                        data: Theme.of(context).copyWith(canvasColor: Color(0xFFff4d4d)),
+                        child: DropdownButton<String>(
+                          style: TextStyle(color: Colors.white),
                           value: this.province,
-                          style: TextStyle (color: Colors.white),
                           items: <String>[
                             'Alberta',
                             'British Columbia',
@@ -66,8 +68,7 @@ class _MyApp extends State<MyApp> {
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
-                              child: Text(value, style: TextStyle(
-                                fontWeight: FontWeight.bold)),
+                              child: Text(value,               style: TextStyle(color: Colors.white)),
                             );
                           }).toList(),
                           onChanged: (selectedProvince) {
@@ -75,7 +76,7 @@ class _MyApp extends State<MyApp> {
                             setState(() {province = selectedProvince;})
                             ;
                           },
-                          hint: Text('Select a Province'))),
+                          hint: Text('Select a Province',style: TextStyle(color: Colors.white) )))),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 20),
                       child: MaterialButton(
