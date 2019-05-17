@@ -77,14 +77,9 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-    readcsv(mySelectedProvince).then((retVal){
-      setState(() {
-              questions = retVal;
-      int maxRange = questions.length;
-    this.selectedQuestions = generateQuestions(TEST_LENGTH, maxRange);
+        this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
     this.currentQuestion = questions[selectedQuestions[index]];   
-      });
-      });
+
     
  
 
