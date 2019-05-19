@@ -13,7 +13,7 @@ void main() async {
         DeviceOrientation.portraitDown,
       ]);
   return runApp(MaterialApp(
-    title: 'Canadian Citizenship test 2019',
+    title: 'Canadian Citizenship Test 2019',
     theme: ThemeData(
       primarySwatch: Colors.blue,
     ),
