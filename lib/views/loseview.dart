@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' as prefix0;
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
@@ -41,6 +42,11 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   void dispose() {
     this.fallingLeaves.dispose();
     super.dispose();
+  }
+
+  testButton() {
+    this.fallingLeaves.reset();  
+    this.fallingLeaves.forward();
   }
 
   @override
@@ -99,18 +105,27 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                               fontWeight: FontWeight.bold)),
                       onPressed: () {
                         startHandler(context, skipAd: false);
-                      })
+                      }),
+                                        MaterialButton(
+                      color: Color(0xFFFFFFFFF),
+                      elevation: 4.0,
+                      splashColor: Color(0xFFff9999),
+                      child: Text('TestButton',
+                          style: TextStyle(
+                              color: Color(0xFFff4d4d),
+                              fontWeight: FontWeight.bold)),
+                      onPressed: testButton)
                 ])),
             Transform(
               transform: Matrix4.translationValues(
-                  animationFalling.value * 100, 0.0, 0.0),
-              child: new Center(
-                  child: Container(
-                width: 200.0,
-                height: 200.0,
-                color: Colors.black12,
-              )),
-            )
+                  0.0, animationFalling.value * 1000, 0.0),
+              child: Align(alignment: Alignment.bottomCenter,child:Row(children: <Widget>[
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 5)
+              ],))
+              
+              ),
           ]));
         });
   }
