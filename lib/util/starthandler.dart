@@ -9,17 +9,12 @@ void startHandler(context, {skipAd}) {
   readcsv(mySelectedProvince).then((retVal) {
     questions = retVal;
     if (!skipAd) {
-      myInterstitial()
+      myInterstitial(context)
         ..load()
         ..show(
           anchorType: AnchorType.bottom,
           anchorOffset: 0.0,
-        ).then((a) {
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return QuestionPage(skipAd: skipAd);
-          }));
-        });
+        );
     } else {
       Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {

@@ -1,4 +1,6 @@
 import 'package:firebase_admob/firebase_admob.dart';
+import 'package:flutter/material.dart';
+import '../views/questionview.dart';
 
 MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
   keywords: <String>['Canada', 'Citizenship', 'test'],
@@ -20,7 +22,7 @@ BannerAd myBanner = BannerAd(
   },
 );
 
-InterstitialAd myInterstitial() {
+InterstitialAd myInterstitial(context) {
   return InterstitialAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
@@ -29,7 +31,16 @@ InterstitialAd myInterstitial() {
   // adUnitId: 'ca-app-pub-3370394751776686/3290071927',
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
+    if(event == MobileAdEvent.opened) {
+    print(event);
+    Future.delayed(const Duration(seconds: 1), () {return Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return QuestionPage(skipAd: false);
+          }));});
+
+    
     print("InterstitialAd event is $event");
+    }
   },
 );
 }

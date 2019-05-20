@@ -1,7 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart' as prefix0;
 import '../style/theme.dart' as Theme;
 
+import './mainview.dart';
 import '../util/starthandler.dart';
 import 'package:firebase_admob/firebase_admob.dart';
 import '../util/adInfo.dart';
@@ -23,6 +24,7 @@ class LosePage extends StatefulWidget {
 class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   AnimationController fallingLeaves;
   Animation<double> animationFalling;
+  bool clicked = false;
 
   @override
   void initState() {
@@ -44,9 +46,10 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  testButton() {
-    this.fallingLeaves.reset();  
-    this.fallingLeaves.forward();
+  homeButton() {
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+            return MyApp();
+          })); 
   }
 
   @override
@@ -104,26 +107,30 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                               color: Color(0xFFff4d4d),
                               fontWeight: FontWeight.bold)),
                       onPressed: () {
-                        startHandler(context, skipAd: false);
+                        clicked ? null : startHandler(context, skipAd: false);
+                        setState(() {
+                          clicked = true; 
+                        });
                       }),
                                         MaterialButton(
                       color: Color(0xFFFFFFFFF),
                       elevation: 4.0,
                       splashColor: Color(0xFFff9999),
-                      child: Text('TestButton',
+                      child: Text('Home',
                           style: TextStyle(
                               color: Color(0xFFff4d4d),
                               fontWeight: FontWeight.bold)),
-                      onPressed: testButton)
+                      onPressed: homeButton)
                 ])),
             Transform(
               transform: Matrix4.translationValues(
-                  0.0, animationFalling.value * 1000, 0.0),
-              child: Align(alignment: Alignment.bottomCenter,child:Row(children: <Widget>[
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 5)
-              ],))
+                  0.0, animationFalling.value * screenHeight, 0.0),
+              child: Container(margin: EdgeInsets.only(bottom: 70),
+              child:Align(alignment: Alignment.bottomCenter,child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 7),
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 7),
+              Image.asset('assets/mapleleaf.png', height: screenHeight / 7)
+              ],)))
               
               ),
           ]));
