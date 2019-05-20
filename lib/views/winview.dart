@@ -3,8 +3,6 @@ import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
 import '../util/enums.dart';
-import '../util/adInfo.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 
 class WinPage extends StatelessWidget {
   final int mistakes;
