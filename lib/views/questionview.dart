@@ -36,7 +36,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<int> selectedQuestions;
   List<String> currentQuestion;
   AnimationState animationState;
-  InterstitialAd myAd;
   AnimationController fadeAnimationController;
 
   void startTimer() {
@@ -88,15 +87,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.fadeAnimationController.forward();
     this.startTimer();
     myBanner..load();
-    myAd = myInterstitial();
-    if(!widget.skipAd) {
-      myAd
-      ..load()
-      ..show(
-        anchorType: AnchorType.bottom,
-        anchorOffset: 0.0,
-      );
-    }
     super.initState();
   }
 
