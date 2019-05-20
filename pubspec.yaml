@@ -55,6 +55,7 @@ flutter:
     - assets/Nunavut.csv
     - assets/Ontario.csv
     - assets/PEI.csv
+    - assets/Quebec.csv
 
 
     - assets/logo7medium.png
