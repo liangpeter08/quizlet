@@ -72,7 +72,9 @@ class _MyApp extends State<MyApp> {
                             'Nunavut',
                             'Ontario',
                             'PEI',
-                            'Quebec'
+                            'Quebec',
+                            'Saskatchewan',
+                            'Yukon'
                           ].map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
