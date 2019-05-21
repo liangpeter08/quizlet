@@ -225,7 +225,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
               Expanded(
                   child: Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+                      margin: EdgeInsets.only(left: 6, bottom: 6, right: 6),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
