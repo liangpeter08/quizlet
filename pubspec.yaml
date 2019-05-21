@@ -44,7 +44,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/quiz.csv
     - assets/Alberta.csv
     - assets/BritishColumbia.csv
     - assets/Manitoba.csv
