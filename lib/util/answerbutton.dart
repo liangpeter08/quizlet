@@ -83,7 +83,7 @@ class QandA extends StatelessWidget {
             opacity: CurvedAnimation(
                 parent: this.animationController, curve: Curves.easeOut),
             child: Container(
-                margin: EdgeInsets.only(bottom: 20),
+                margin: EdgeInsets.only(top: 20, bottom: 20),
                 child: Column(children: <Widget>[
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 90 / 100,
