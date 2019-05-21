@@ -11,13 +11,11 @@ import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
 import '../util/adInfo.dart';
-import '../util/readcsv.dart';
-
+import '../util/starthandler.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final bool skipAd;
-
 
   QuestionPage({this.skipAd});
   @override
@@ -46,7 +44,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
               if (this.time < 1) {
                 this.timer.cancel();
                 //TO DO: go to end page when times runs out. See if user passes or fails
-                if (((index - mistakes) / PASSING_GRADE).toDouble() > PASSING_PERCENTAGE) {
+                if (((index - mistakes) / PASSING_GRADE).toDouble() >
+                    PASSING_PERCENTAGE) {
                   //win scenario
                   Navigator.pushReplacement(
                       context,
@@ -57,8 +56,11 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              LosePage(mistakes: this.mistakes, index:this.index, reason:'timed out',)));
+                          builder: (context) => LosePage(
+                                mistakes: this.mistakes,
+                                index: this.index,
+                                reason: 'timed out',
+                              )));
                 }
               } else {
                 this.time = time - 1;
@@ -76,11 +78,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-        this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
-    this.currentQuestion = questions[selectedQuestions[index]];   
-
-    
- 
+    this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
+    this.currentQuestion = questions[selectedQuestions[index]];
 
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
@@ -92,7 +91,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
 
   void dispose() {
     this.timer.cancel();
-    this.fadeAnimationController.dispose(); 
+    this.fadeAnimationController.dispose();
     super.dispose();
   }
 
@@ -108,13 +107,16 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
       });
     }
     await new Future.delayed(const Duration(seconds: 1));
-    if(!this.mounted) return;
-    
+    if (!this.mounted) return;
+
     if (this.mistakes == 5) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-              builder: (context) => LosePage(mistakes: this.mistakes, index:this.index, reason: 'mistakes')));
+              builder: (context) => LosePage(
+                  mistakes: this.mistakes,
+                  index: this.index,
+                  reason: 'mistakes')));
     }
     if (this.index + 1 < this.selectedQuestions.length) {
       setState(() {
@@ -180,19 +182,29 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                   child: Row(
                     children: <Widget>[
                       Container(
-                          padding: EdgeInsets.all(screenHeight / 40),
-                          width: screenWidth * 0.34,
+                          padding: EdgeInsets.only(
+                              left: screenHeight / 60,
+                              right: screenHeight / 60,
+                              top: screenHeight / 240,
+                              bottom: screenHeight / 240),
+                          width: screenWidth * 0.28,
                           child: Text(
-                              'Strikes: ${displayMistakes(this.mistakes)}',
-                              style: TextStyle(
-                                  fontFamily: 'font1',
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 16), maxLines: 1,)),
+                            'Strikes: ${displayMistakes(this.mistakes)}',
+                            style: TextStyle(
+                                fontFamily: 'font1',
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 15),
+                            maxLines: 1,
+                          )),
                       Expanded(
                           child: Center(
                               child: Container(
-                                  padding: EdgeInsets.all(screenHeight / 80),
+                                  padding: EdgeInsets.only(
+                                      left: screenHeight / 60,
+                                      right: screenHeight / 60,
+                                      top: screenHeight / 240,
+                                      bottom: screenHeight / 240),
                                   child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -200,25 +212,46 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                         Icon(
                                           IconData(0xe192,
                                               fontFamily: 'MaterialIcons'),
+                                          size: 20,
                                           color: Color(0xFFFFFFFF),
                                         ),
                                         Text(printTime(this.time),
                                             style: TextStyle(
                                                 fontFamily: 'font1',
                                                 color: Color(0xFFFFFFFF),
-                                                fontSize: 16)),
+                                                fontSize: 15)),
                                       ])))),
                       Container(
-                          padding: EdgeInsets.all(screenHeight / 40),
-                          width: screenWidth * 0.34,
-                          child: Align(
-                              alignment: Alignment.topRight,
-                              child: Text(
-                                  'Total: ${this.index + 1}/${this.selectedQuestions.length}',
-                                  style: TextStyle(
-                                      fontFamily: 'font1',
-                                      color: Color(0xFFFFFFFF),
-                                      fontSize: 16)))),
+                          padding: EdgeInsets.only(
+                              left: screenHeight / 60,
+                              right: screenHeight / 60,
+                              top: screenHeight / 240,
+                              bottom: screenHeight / 240),
+                          width: screenWidth * 0.2,
+                          child: IconButton(
+                            icon: Icon(Icons.repeat),
+                            onPressed: () {
+                              startHandler(context, skipAd: false);
+                            },
+                            color: Color(0xFFFFFFFF),
+                            iconSize: 21,
+                          )),
+                      Container(
+                        padding: EdgeInsets.only(
+                            left: screenHeight / 60,
+                            right: screenHeight / 60,
+                            top: screenHeight / 240,
+                            bottom: screenHeight / 240),
+                        width: screenWidth * 0.28,
+                        child: Align(
+                            alignment: Alignment.topRight,
+                            child: Text(
+                                'Total: ${this.index + 1}/${this.selectedQuestions.length}',
+                                style: TextStyle(
+                                    fontFamily: 'font1',
+                                    color: Color(0xFFFFFFFF),
+                                    fontSize: 15))),
+                      ),
                       Container(
                           padding: EdgeInsets.only(top: screenHeight / 15)),
                     ],
