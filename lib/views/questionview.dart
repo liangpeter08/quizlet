@@ -35,6 +35,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<String> currentQuestion;
   AnimationState animationState;
   AnimationController fadeAnimationController;
+  bool reset;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -80,6 +81,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.answerOrder = generateOrder(4);
     this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
     this.currentQuestion = questions[selectedQuestions[index]];
+    this.reset = false;
 
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
@@ -95,7 +97,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  onClick(int selected, int csvColNum) async {
+  onClick(int selected, int csvColNum) {
     setState(() {
       this.selectedAnswer = selected;
     });
@@ -106,38 +108,39 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         ++this.mistakes;
       });
     }
-    await new Future.delayed(const Duration(seconds: 1));
-    if (!this.mounted) return;
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!this.mounted) return;
 
-    if (this.mistakes == 6) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LosePage(
-                  mistakes: this.mistakes,
-                  index: this.index,
-                  reason: 'mistakes')));
-    }
-    if (this.index + 1 < this.selectedQuestions.length) {
-      setState(() {
-        ++this.index;
-        this.selectedAnswer = -1;
-        this.answerOrder = generateOrder(4);
-        this.currentQuestion = questions[this.selectedQuestions[index]];
-        this.animationState = AnimationState.DEFAULT_STATE;
-      });
-      // this.fadeAnimationController.forward();
-      if (this.fadeAnimationController != null) {
-        this.fadeAnimationController.reset();
-        // await new Future.delayed(const Duration(seconds: 1));
-        this.fadeAnimationController.forward();
+      if (this.mistakes == 6) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LosePage(
+                    mistakes: this.mistakes,
+                    index: this.index,
+                    reason: 'mistakes')));
       }
-    } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WinPage(mistakes: this.mistakes)));
-    }
+      if (this.index + 1 < this.selectedQuestions.length) {
+        setState(() {
+          ++this.index;
+          this.selectedAnswer = -1;
+          this.answerOrder = generateOrder(4);
+          this.currentQuestion = questions[this.selectedQuestions[index]];
+          this.animationState = AnimationState.DEFAULT_STATE;
+        });
+        // this.fadeAnimationController.forward();
+        if (this.fadeAnimationController != null) {
+          this.fadeAnimationController.reset();
+          // await new Future.delayed(const Duration(seconds: 1));
+          this.fadeAnimationController.forward();
+        }
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WinPage(mistakes: this.mistakes)));
+      }
+    });
   }
 
   String displayMistakes(int mistakes) {
@@ -230,7 +233,10 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                           child: IconButton(
                             icon: Icon(Icons.repeat),
                             onPressed: () {
-                              startHandler(context, skipAd: false);
+                              if (!reset) {
+                                startHandler(context, skipAd: false);                            
+                                setState(() {this.reset = true;});
+                              }
                             },
                             color: Color(0xFFFFFFFF),
                             iconSize: 21,
@@ -258,7 +264,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
               Expanded(
                   child: Container(
                       width: MediaQuery.of(context).size.width,
-                      margin: EdgeInsets.only(left: 10, bottom: 10, right: 10),
+                      margin: EdgeInsets.only(left: 6, bottom: 6, right: 6),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         border: Border.all(
