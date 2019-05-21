@@ -25,15 +25,11 @@ class QandA extends StatelessWidget {
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
       return Container(
           width: MediaQuery.of(context).size.width * 80 / 100,
-          // height: MediaQuery.of(context).size.height * 10 / 100,
           child:
-              // FittedBox(
-              //   fit: BoxFit.fitWidth,
-              // child:
               Container(
-            margin: EdgeInsets.only(top: 20),
+            margin: EdgeInsets.only(top: screenHeight /60),
             child: RaisedButton(
-              padding: EdgeInsets.all(screenHeight / 60),
+              padding: EdgeInsets.only(top: screenHeight * 0.02, bottom: screenHeight * 0.01),
               shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(10.0)),
               color: this.selectedButton == i
@@ -45,7 +41,7 @@ class QandA extends StatelessWidget {
               splashColor: Color(0xFFbdc3cc),
               child: SizedBox(
                   height: screenHeight * 0.055,
-                  child: Container(alignment: Alignment.center,
+                  child: Container(
                   child: AutoSizeText(
                     currentQuestion[answerOrder[i]],
                     textAlign: TextAlign.center,
@@ -91,7 +87,7 @@ class QandA extends StatelessWidget {
                 child: Column(children: <Widget>[
                   SizedBox(
                       width: MediaQuery.of(context).size.width * 90 / 100,
-                      height: screenHeight * 0.25,
+                      height: screenHeight * 0.2,
                       child: Container(
                           alignment: Alignment.center,
                           //    margin: EdgeInsets.all(screenWidth / 20),
@@ -102,7 +98,7 @@ class QandA extends StatelessWidget {
                                   color: Color(0xFF3a3a3a),
                                   fontSize: TEXT_SIZE + 10),
                                   maxLines: 3,))),
-                  Expanded(child: Column(children: questionAndAnswer)),
+                Expanded(child: Column(children: questionAndAnswer)),
                 ]
                     // )
                     ))

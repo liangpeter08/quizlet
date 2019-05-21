@@ -76,7 +76,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                       tileMode: TileMode.clamp),
                 ),
                 child: Column(children: <Widget>[
-                  Container(padding: EdgeInsets.only(top: screenHeight / 5)),
+                  Spacer(),
                   Container(
                     child: Text('Let\'s Study Harder!',
                         style: TextStyle(
@@ -84,7 +84,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                             color: Color(0xFFFFFFFF),
                             fontSize: 30)),
                   ),
-                  Container(padding: EdgeInsets.only(top: screenHeight / 10)),
+                 Spacer(),
                   Container(
                     child: Text(
                         widget.reason == 'mistakes'
@@ -98,7 +98,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                             fontSize: 22)),
                   ),
                   Container(padding: EdgeInsets.only(top: screenHeight / 10)),
-                  MaterialButton(
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Container(margin: EdgeInsets.all(5), child:
+                    MaterialButton(
                       color: Color(0xFFFFFFFFF),
                       elevation: 4.0,
                       splashColor: Color(0xFFff9999),
@@ -111,7 +113,8 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                         setState(() {
                           clicked = true; 
                         });
-                      }),
+                      })),
+    Container(margin: EdgeInsets.all(5), child:
                                         MaterialButton(
                       color: Color(0xFFFFFFFFF),
                       elevation: 4.0,
@@ -120,7 +123,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                           style: TextStyle(
                               color: Color(0xFFff4d4d),
                               fontWeight: FontWeight.bold)),
-                      onPressed: homeButton)
+                      onPressed: homeButton))]),
+                                       Spacer(),
+                                                        Spacer(),
                 ])),
             Transform(
               transform: Matrix4.translationValues(
