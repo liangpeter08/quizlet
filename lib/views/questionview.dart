@@ -109,7 +109,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     await new Future.delayed(const Duration(seconds: 1));
     if (!this.mounted) return;
 
-    if (this.mistakes == 5) {
+    if (this.mistakes == 6) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
@@ -184,10 +184,9 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                       Container(
                           padding: EdgeInsets.only(
                               left: screenHeight / 60,
-                              right: screenHeight / 60,
                               top: screenHeight / 240,
                               bottom: screenHeight / 240),
-                          width: screenWidth * 0.28,
+                          width: screenWidth * 0.30,
                           child: Text(
                             'Strikes: ${displayMistakes(this.mistakes)}',
                             style: TextStyle(
