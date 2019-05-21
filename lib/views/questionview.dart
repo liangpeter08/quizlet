@@ -10,8 +10,8 @@ import '../util/printtime.dart';
 import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
+import './mainview.dart';
 import '../util/adInfo.dart';
-import '../util/starthandler.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
@@ -35,7 +35,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<String> currentQuestion;
   AnimationState animationState;
   AnimationController fadeAnimationController;
-  bool reset;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -81,7 +80,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.answerOrder = generateOrder(4);
     this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
     this.currentQuestion = questions[selectedQuestions[index]];
-    this.reset = false;
 
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
@@ -231,12 +229,12 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                               bottom: screenHeight / 240),
                           width: screenWidth * 0.2,
                           child: IconButton(
-                            icon: Icon(Icons.repeat),
+                            icon: Icon(Icons.home),
                             onPressed: () {
-                              if (!reset) {
-                                startHandler(context, skipAd: false);                            
-                                setState(() {this.reset = true;});
-                              }
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return MyApp();
+                              }));
                             },
                             color: Color(0xFFFFFFFF),
                             iconSize: 21,
