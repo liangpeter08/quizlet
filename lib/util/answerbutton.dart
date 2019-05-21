@@ -49,7 +49,7 @@ class QandA extends StatelessWidget {
                         fontWeight: FontWeight.normal),
                   ),
               onPressed: this.selectedButton == -1
-                  ? () async => await btnHandler(i, answerOrder[i])
+                  ? () => btnHandler(i, answerOrder[i])
                   : () {},
             ),
             // )

@@ -12,11 +12,9 @@ import './winview.dart';
 import './loseview.dart';
 import '../util/adInfo.dart';
 
-
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final bool skipAd;
-
 
   QuestionPage({this.skipAd});
   @override
@@ -45,7 +43,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
               if (this.time < 1) {
                 this.timer.cancel();
                 //TO DO: go to end page when times runs out. See if user passes or fails
-                if (((index - mistakes) / PASSING_GRADE).toDouble() > PASSING_PERCENTAGE) {
+                if (((index - mistakes) / PASSING_GRADE).toDouble() >
+                    PASSING_PERCENTAGE) {
                   //win scenario
                   Navigator.pushReplacement(
                       context,
@@ -56,8 +55,11 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              LosePage(mistakes: this.mistakes, index:this.index, reason:'timed out',)));
+                          builder: (context) => LosePage(
+                                mistakes: this.mistakes,
+                                index: this.index,
+                                reason: 'timed out',
+                              )));
                 }
               } else {
                 this.time = time - 1;
@@ -75,11 +77,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-        this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
-    this.currentQuestion = questions[selectedQuestions[index]];   
-
-    
- 
+    this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
+    this.currentQuestion = questions[selectedQuestions[index]];
 
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
@@ -91,11 +90,11 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
 
   void dispose() {
     this.timer.cancel();
-    this.fadeAnimationController.dispose(); 
+    this.fadeAnimationController.dispose();
     super.dispose();
   }
 
-  onClick(int selected, int csvColNum) async {
+  onClick(int selected, int csvColNum) {
     setState(() {
       this.selectedAnswer = selected;
     });
@@ -106,35 +105,39 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         ++this.mistakes;
       });
     }
-    await new Future.delayed(const Duration(seconds: 1));
-    if(!this.mounted) return;
-    
-    if (this.mistakes == 5) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => LosePage(mistakes: this.mistakes, index:this.index, reason: 'mistakes')));
-    }
-    if (this.index + 1 < this.selectedQuestions.length) {
-      setState(() {
-        ++this.index;
-        this.selectedAnswer = -1;
-        this.answerOrder = generateOrder(4);
-        this.currentQuestion = questions[this.selectedQuestions[index]];
-        this.animationState = AnimationState.DEFAULT_STATE;
-      });
-      // this.fadeAnimationController.forward();
-      if (this.fadeAnimationController != null) {
-        this.fadeAnimationController.reset();
-        // await new Future.delayed(const Duration(seconds: 1));
-        this.fadeAnimationController.forward();
+    Future.delayed(const Duration(seconds: 1), () {
+      if (!this.mounted) return;
+
+      if (this.mistakes == 5) {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => LosePage(
+                    mistakes: this.mistakes,
+                    index: this.index,
+                    reason: 'mistakes')));
       }
-    } else {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => WinPage(mistakes: this.mistakes)));
-    }
+      if (this.index + 1 < this.selectedQuestions.length) {
+        setState(() {
+          ++this.index;
+          this.selectedAnswer = -1;
+          this.answerOrder = generateOrder(4);
+          this.currentQuestion = questions[this.selectedQuestions[index]];
+          this.animationState = AnimationState.DEFAULT_STATE;
+        });
+        // this.fadeAnimationController.forward();
+        if (this.fadeAnimationController != null) {
+          this.fadeAnimationController.reset();
+          // await new Future.delayed(const Duration(seconds: 1));
+          this.fadeAnimationController.forward();
+        }
+      } else {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => WinPage(mistakes: this.mistakes)));
+      }
+    });
   }
 
   String displayMistakes(int mistakes) {
@@ -182,12 +185,14 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                           padding: EdgeInsets.all(screenHeight / 40),
                           width: screenWidth * 0.34,
                           child: Text(
-                              'Strikes: ${displayMistakes(this.mistakes)}',
-                              style: TextStyle(
-                                  fontFamily: 'font1',
-                                  color: Color(0xFFFFFFFF),
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 16), maxLines: 1,)),
+                            'Strikes: ${displayMistakes(this.mistakes)}',
+                            style: TextStyle(
+                                fontFamily: 'font1',
+                                color: Color(0xFFFFFFFF),
+                                fontWeight: FontWeight.normal,
+                                fontSize: 16),
+                            maxLines: 1,
+                          )),
                       Expanded(
                           child: Center(
                               child: Container(
