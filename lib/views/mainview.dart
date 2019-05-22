@@ -98,9 +98,9 @@ class _MyApp extends State<MyApp> {
                                 fontWeight: FontWeight.bold)),
                         onPressed: () => startHandler(context, skipAd: true),
                       )),
-                  Container(padding: EdgeInsets.only(top: screenHeight / 5)),
                   Expanded(
                       child: Container(
+                        padding: EdgeInsets.only(top: 10),
                           //color: Color(0xFFFFFF00),
                           child: Row(
                               mainAxisAlignment: MainAxisAlignment.end,
