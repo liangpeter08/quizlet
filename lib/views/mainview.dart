@@ -22,6 +22,7 @@ class _MyApp extends State<MyApp> {
 
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
+    double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         body: Container(
             width: MediaQuery.of(context).size.width,
@@ -42,7 +43,7 @@ class _MyApp extends State<MyApp> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                  Container(padding: EdgeInsets.only(top: screenHeight / 5)),
+                  Container(padding: EdgeInsets.only(top: (screenHeight / 5) - (screenHeight / 25))),
                   Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 30),
@@ -88,7 +89,7 @@ class _MyApp extends State<MyApp> {
                           hint: Text('Select a Province',style: TextStyle(color: Colors.white), textAlign: TextAlign.center, )))),
                   Container(
                       margin: EdgeInsets.only(top: screenHeight / 20),
-                      child: MaterialButton(
+                      child: ButtonTheme(child: MaterialButton(minWidth: screenWidth/4,
                         color: Color(0xFFFFFFFFF),
                         elevation: 4.0,
                         splashColor: Color(0xFFff9999),
@@ -96,8 +97,20 @@ class _MyApp extends State<MyApp> {
                             style: TextStyle(
                                 color: Color(0xFFff4d4d),
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => startHandler(context, skipAd: true),
-                      )),
+                        onPressed: () => startHandler(context, 'Test', skipAd: true),
+                      ))),
+                      Container(
+                      margin: EdgeInsets.only(top: screenHeight / 100),
+                      child: ButtonTheme(minWidth: screenWidth/ 4, child: MaterialButton(
+                        color: Color(0xFFFFFFFFF),
+                        elevation: 4.0,
+                        splashColor: Color(0xFFff9999),
+                        child: Text('Practice',
+                            style: TextStyle(
+                                color: Color(0xFFff4d4d),
+                                fontWeight: FontWeight.bold)),
+                        onPressed: () => startHandler(context, 'Practice', skipAd: true),
+                      ))),
                   Expanded(
                       child: Container(
                         padding: EdgeInsets.only(top: 10),

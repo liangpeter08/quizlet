@@ -85,7 +85,7 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                         style: TextStyle(
                             color: Color(0xFFff4d4d),
                             fontWeight: FontWeight.bold)),
-                    onPressed: () => startHandler(context, skipAd: false),
+                    onPressed: () => startHandler(context, 'Practice', skipAd: false),
                   ),             MaterialButton(
                     color: Color(0xFFFFFFFFF),
                     elevation: 4.0,

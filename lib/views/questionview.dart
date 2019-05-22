@@ -16,8 +16,9 @@ import '../util/adInfo.dart';
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
   final bool skipAd;
+  final String type;
 
-  QuestionPage({this.skipAd});
+  QuestionPage({this.skipAd, this.type});
   @override
   State<StatefulWidget> createState() {
     return _QuestionState();
@@ -79,7 +80,12 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.time = TEST_TIME_LIMIT;
     this.animationState = AnimationState.DEFAULT_STATE;
     this.answerOrder = generateOrder(4);
-    this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
+    if (widget.type == 'Test') {
+      this.selectedQuestions = generateQuestions(TEST_LENGTH, questions.length);
+    } else if (widget.type == 'Practice') {
+      this.selectedQuestions =
+          List<int>.generate(questions.length, (int index) => index);
+    }
     this.currentQuestion = questions[selectedQuestions[index]];
 
     this.fadeAnimationController =
@@ -111,7 +117,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     Future.delayed(const Duration(seconds: 1), () {
       if (!this.mounted) return;
 
-      if (this.mistakes == 6) {
+      if (widget.type == 'Test' && this.mistakes == 6) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -126,8 +132,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
             anchorType: AnchorType.bottom,
             anchorOffset: 0.0,
           );
-          myAd = myInterstitial(null)
-            ..load();
+          myAd = myInterstitial(null)..load();
         }
         setState(() {
           ++this.index;
@@ -152,11 +157,15 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   }
 
   String displayMistakes(int mistakes) {
-    String strikes = '';
-    for (int i = 0; i < mistakes; ++i) {
-      strikes += 'X';
+    if (widget.type == 'Test') {
+      String strikes = '';
+      for (int i = 0; i < mistakes; ++i) {
+        strikes += 'X';
+      }
+      return 'Strikes: ' + strikes;
+    } else {
+      return '';
     }
-    return strikes;
   }
 
   Widget build(BuildContext context) {
@@ -199,7 +208,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                               bottom: screenHeight / 240),
                           width: screenWidth * 0.30,
                           child: Text(
-                            'Strikes: ${displayMistakes(this.mistakes)}',
+                            '${displayMistakes(this.mistakes)}',
                             style: TextStyle(
                                 fontFamily: 'font1',
                                 color: Color(0xFFFFFFFF),

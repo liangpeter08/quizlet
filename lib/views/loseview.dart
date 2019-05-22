@@ -14,7 +14,8 @@ class LosePage extends StatefulWidget {
   final int mistakes;
   final int index;
   final String reason; //should only be 'timed' or 'mistakes'
-  LosePage({this.mistakes, this.index, this.reason});
+  final String type;
+  LosePage({this.mistakes, this.index, this.reason, this.type});
   @override
   State<StatefulWidget> createState() {
     return _LoseState();
@@ -117,7 +118,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                   anchorType: AnchorType.bottom,
                                   anchorOffset: 0.0,
                                 );
-                                startHandler(context, skipAd: false);
+                                startHandler(context, widget.type, skipAd: false);
                               }
                               setState(() {
                                 clicked = true;
