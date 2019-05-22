@@ -25,6 +25,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   AnimationController fallingLeaves;
   Animation<double> animationFalling;
   bool clicked = false;
+  InterstitialAd myAd;
 
   @override
   void initState() {
@@ -37,6 +38,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       parent: fallingLeaves,
       curve: Curves.fastOutSlowIn,
     ));
+    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
@@ -48,8 +50,8 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
 
   homeButton() {
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-            return MyApp();
-          })); 
+      return MyApp();
+    }));
   }
 
   @override
@@ -84,7 +86,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                             color: Color(0xFFFFFFFF),
                             fontSize: 30)),
                   ),
-                 Spacer(),
+                  Spacer(),
                   Container(
                     child: Text(
                         widget.reason == 'mistakes'
@@ -99,45 +101,61 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                   ),
                   Container(padding: EdgeInsets.only(top: screenHeight / 10)),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(margin: EdgeInsets.all(5), child:
-                    MaterialButton(
-                      color: Color(0xFFFFFFFFF),
-                      elevation: 4.0,
-                      splashColor: Color(0xFFff9999),
-                      child: Text('Retry',
-                          style: TextStyle(
-                              color: Color(0xFFff4d4d),
-                              fontWeight: FontWeight.bold)),
-                      onPressed: () {
-                        clicked ? null : startHandler(context, skipAd: false);
-                        setState(() {
-                          clicked = true; 
-                        });
-                      })),
-    Container(margin: EdgeInsets.all(5), child:
-                                        MaterialButton(
-                      color: Color(0xFFFFFFFFF),
-                      elevation: 4.0,
-                      splashColor: Color(0xFFff9999),
-                      child: Text('Home',
-                          style: TextStyle(
-                              color: Color(0xFFff4d4d),
-                              fontWeight: FontWeight.bold)),
-                      onPressed: homeButton))]),
-                                       Spacer(),
-                                                        Spacer(),
+                    Container(
+                        margin: EdgeInsets.all(5),
+                        child: MaterialButton(
+                            color: Color(0xFFFFFFFFF),
+                            elevation: 4.0,
+                            splashColor: Color(0xFFff9999),
+                            child: Text('Retry',
+                                style: TextStyle(
+                                    color: Color(0xFFff4d4d),
+                                    fontWeight: FontWeight.bold)),
+                            onPressed: () {
+                              if (!clicked) {
+                                myAd.show(
+                                  anchorType: AnchorType.bottom,
+                                  anchorOffset: 0.0,
+                                );
+                                startHandler(context, skipAd: false);
+                              }
+                              setState(() {
+                                clicked = true;
+                              });
+                            })),
+                    Container(
+                        margin: EdgeInsets.all(5),
+                        child: MaterialButton(
+                            color: Color(0xFFFFFFFFF),
+                            elevation: 4.0,
+                            splashColor: Color(0xFFff9999),
+                            child: Text('Home',
+                                style: TextStyle(
+                                    color: Color(0xFFff4d4d),
+                                    fontWeight: FontWeight.bold)),
+                            onPressed: homeButton))
+                  ]),
+                  Spacer(),
+                  Spacer(),
                 ])),
             Transform(
-              transform: Matrix4.translationValues(
-                  0.0, animationFalling.value * screenHeight, 0.0),
-              child: Container(margin: EdgeInsets.only(bottom: 70),
-              child:Align(alignment: Alignment.bottomCenter,child:Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 7),
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 7),
-              Image.asset('assets/mapleleaf.png', height: screenHeight / 7)
-              ],)))
-              
-              ),
+                transform: Matrix4.translationValues(
+                    0.0, animationFalling.value * screenHeight, 0.0),
+                child: Container(
+                    margin: EdgeInsets.only(bottom: 70),
+                    child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Image.asset('assets/mapleleaf.png',
+                                height: screenHeight / 7),
+                            Image.asset('assets/mapleleaf.png',
+                                height: screenHeight / 7),
+                            Image.asset('assets/mapleleaf.png',
+                                height: screenHeight / 7)
+                          ],
+                        )))),
           ]));
         });
   }

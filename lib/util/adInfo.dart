@@ -30,7 +30,7 @@ InterstitialAd myInterstitial(context) {
   adUnitId: 'ca-app-pub-3940256099942544/1033173712', // test
   // adUnitId: 'ca-app-pub-3370394751776686/3290071927',
   targetingInfo: targetingInfo,
-  listener: (MobileAdEvent event) {
+  listener: context == null ? (MobileAdEvent event) {
     if(event == MobileAdEvent.opened) {
     print(event);
     Future.delayed(const Duration(seconds: 1), () {return Navigator.pushReplacement(context,
@@ -41,6 +41,6 @@ InterstitialAd myInterstitial(context) {
     
     print("InterstitialAd event is $event");
     }
-  },
+  } : null,
 );
 }

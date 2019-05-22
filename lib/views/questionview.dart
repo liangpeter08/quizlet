@@ -35,6 +35,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<String> currentQuestion;
   AnimationState animationState;
   AnimationController fadeAnimationController;
+  InterstitialAd myAd;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -86,6 +87,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.fadeAnimationController.forward();
     this.startTimer();
     myBanner..load();
+    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
@@ -119,6 +121,14 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                     reason: 'mistakes')));
       }
       if (this.index + 1 < this.selectedQuestions.length) {
+        if ((this.index + 1) % 5 == 0) {
+          myAd.show(
+            anchorType: AnchorType.bottom,
+            anchorOffset: 0.0,
+          );
+          myAd = myInterstitial(null)
+            ..load();
+        }
         setState(() {
           ++this.index;
           this.selectedAnswer = -1;
