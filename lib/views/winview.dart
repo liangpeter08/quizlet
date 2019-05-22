@@ -41,12 +41,12 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void testFunction() {
-    fallingLeaves.reset();
-    fallingLeaves.forward();
-    colorController.reset();
-    colorController.forward();
-  }
+  // void testFunction() {
+  //   fallingLeaves.reset();
+  //   fallingLeaves.forward();
+  //   colorController.reset();
+  //   colorController.forward();
+  // }
 
   void dispose() {
     this.colorController.dispose();
@@ -124,15 +124,15 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                                 fontWeight: FontWeight.bold)),
                         onPressed: () => startHandler(context, skipAd: false),
                       ),
-                      MaterialButton(
-                          color: Color(0xFFFFFFFFF),
-                          elevation: 4.0,
-                          splashColor: Color(0xFFff9999),
-                          child: Text('Test',
-                              style: TextStyle(
-                                  color: Color(0xFFff4d4d),
-                                  fontWeight: FontWeight.bold)),
-                          onPressed: () => testFunction()),
+                      // MaterialButton(
+                      //     color: Color(0xFFFFFFFFF),
+                      //     elevation: 4.0,
+                      //     splashColor: Color(0xFFff9999),
+                      //     child: Text('Test',
+                      //         style: TextStyle(
+                      //             color: Color(0xFFff4d4d),
+                      //             fontWeight: FontWeight.bold)),
+                      //     onPressed: () => testFunction()),
                     ]),
                   ])));
         });
