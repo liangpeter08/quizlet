@@ -46,6 +46,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     this.fallingLeaves.dispose();
+    if (this.myAd != null) {
+      this.myAd.dispose();
+    }
     super.dispose();
   }
 

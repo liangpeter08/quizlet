@@ -100,6 +100,9 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   void dispose() {
     this.timer.cancel();
     this.fadeAnimationController.dispose();
+    if (this.myAd != null) {
+      this.myAd.dispose();
+    }
     super.dispose();
   }
 
@@ -132,6 +135,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
             anchorType: AnchorType.bottom,
             anchorOffset: 0.0,
           );
+          myAd.dispose();
           myAd = myInterstitial(null)..load();
         }
         setState(() {
