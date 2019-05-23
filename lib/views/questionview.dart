@@ -62,6 +62,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                 mistakes: this.mistakes,
                                 index: this.index,
                                 reason: 'timed out',
+                                type: widget.type,
                               )));
                 }
               } else {
@@ -127,7 +128,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                 builder: (context) => LosePage(
                     mistakes: this.mistakes,
                     index: this.index,
-                    reason: 'mistakes')));
+                    reason: 'mistakes',
+                    type: widget.type,)));
       }
       if (this.index + 1 < this.selectedQuestions.length) {
         if ((this.index + 1) % 5 == 0) {
@@ -238,7 +240,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                           size: 20,
                                           color: Color(0xFFFFFFFF),
                                         ),
-                                        Text(printTime(this.time),
+                                        Text(printTime(this.time, widget.type),
                                             style: TextStyle(
                                                 fontFamily: 'font1',
                                                 color: Color(0xFFFFFFFF),
