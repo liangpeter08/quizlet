@@ -23,6 +23,7 @@ class _MyApp extends State<MyApp> {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
+    setTextSize(screenWidth, screenHeight);
     return Scaffold(
         body: Container(
             width: MediaQuery.of(context).size.width,
