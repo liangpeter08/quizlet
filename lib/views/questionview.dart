@@ -209,6 +209,23 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                     children: <Widget>[
                       Container(
                           padding: EdgeInsets.only(
+                              right: screenHeight / 60,
+                              top: screenHeight / 240,
+                              bottom: screenHeight / 240),
+                          width: screenWidth * 0.2,
+                          child: IconButton(
+                            icon: Icon(Icons.home),
+                            onPressed: () {
+                              Navigator.pushReplacement(context,
+                                  MaterialPageRoute(builder: (context) {
+                                return MyApp();
+                              }));
+                            },
+                            color: Color(0xFFFFFFFF),
+                            iconSize: textSize * 1.5,
+                          )),
+                      Container(
+                          padding: EdgeInsets.only(
                               left: screenHeight / 60,
                               top: screenHeight / 240,
                               bottom: screenHeight / 240),
@@ -246,24 +263,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                                 color: Color(0xFFFFFFFF),
                                                 fontSize: textSize)),
                                       ])))),
-                      Container(
-                          padding: EdgeInsets.only(
-                              left: screenHeight / 60,
-                              right: screenHeight / 60,
-                              top: screenHeight / 240,
-                              bottom: screenHeight / 240),
-                          width: screenWidth * 0.2,
-                          child: IconButton(
-                            icon: Icon(Icons.home),
-                            onPressed: () {
-                              Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) {
-                                return MyApp();
-                              }));
-                            },
-                            color: Color(0xFFFFFFFF),
-                            iconSize: textSize * 1.5,
-                          )),
                       Container(
                         padding: EdgeInsets.only(
                             left: screenHeight / 60,

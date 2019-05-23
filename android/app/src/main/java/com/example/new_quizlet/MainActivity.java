@@ -1,4 +1,4 @@
-package com.example.new_quizlet;
+package com.quetzalLab.canadian_citizenship;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;
