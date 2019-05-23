@@ -132,7 +132,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                     type: widget.type,)));
       }
       if (this.index + 1 < this.selectedQuestions.length) {
-        if ((this.index + 1) % 5 == 0) {
+        if ((this.index + 1) % 8 == 0) {
           myAd.show(
             anchorType: AnchorType.bottom,
             anchorOffset: 0.0,
