@@ -219,7 +219,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                 fontFamily: 'font1',
                                 color: Color(0xFFFFFFFF),
                                 fontWeight: FontWeight.normal,
-                                fontSize: 15),
+                                fontSize: textSize),
                             maxLines: 1,
                           )),
                       Expanded(
@@ -237,14 +237,14 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                         Icon(
                                           IconData(0xe192,
                                               fontFamily: 'MaterialIcons'),
-                                          size: 20,
+                                          size: textSize,
                                           color: Color(0xFFFFFFFF),
                                         ),
                                         Text(printTime(this.time, widget.type),
                                             style: TextStyle(
                                                 fontFamily: 'font1',
                                                 color: Color(0xFFFFFFFF),
-                                                fontSize: 15)),
+                                                fontSize: textSize)),
                                       ])))),
                       Container(
                           padding: EdgeInsets.only(
@@ -262,7 +262,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                               }));
                             },
                             color: Color(0xFFFFFFFF),
-                            iconSize: 21,
+                            iconSize: textSize * 1.5,
                           )),
                       Container(
                         padding: EdgeInsets.only(
@@ -278,7 +278,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                                 style: TextStyle(
                                     fontFamily: 'font1',
                                     color: Color(0xFFFFFFFF),
-                                    fontSize: 15))),
+                                    fontSize: textSize))),
                       ),
                       Container(
                           padding: EdgeInsets.only(top: screenHeight / 15)),

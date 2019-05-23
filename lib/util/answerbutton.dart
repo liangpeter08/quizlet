@@ -43,7 +43,7 @@ class QandA extends StatelessWidget {
                     currentQuestion[answerOrder[i]],
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: TEXT_SIZE,
+                        fontSize: textSize,
                         fontFamily: 'font2',
                         color: Color(0xFF3a3a3a),
                         fontWeight: FontWeight.normal),
@@ -80,7 +80,7 @@ class QandA extends StatelessWidget {
                               style: TextStyle(
                                   fontFamily: 'font2',
                                   color: Color(0xFF3a3a3a),
-                                  fontSize: TEXT_SIZE + 5),
+                                  fontSize: textSize + 5),
                                   maxLines: 3,))),
                 Expanded(child: Column(children: questionAndAnswer)),
                 ]
