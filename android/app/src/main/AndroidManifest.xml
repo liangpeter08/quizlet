@@ -8,8 +8,8 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="new_quizlet"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Canadian Citizenship 2019"
+        android:icon="@mipmap/mapleleaf">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
