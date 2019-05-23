@@ -13,8 +13,8 @@ BannerAd myBanner = BannerAd(
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
-  adUnitId:  'ca-app-pub-3940256099942544/6300978111', // test ad
-  // adUnitId: 'ca-app-pub-3370394751776686/1968417247',
+  // adUnitId:  'ca-app-pub-3940256099942544/6300978111', // test ad
+  adUnitId: 'ca-app-pub-3370394751776686/1968417247',
   size: AdSize.banner,
   targetingInfo: targetingInfo,
   listener: (MobileAdEvent event) {
@@ -27,8 +27,8 @@ InterstitialAd myInterstitial(context) {
   // Replace the testAdUnitId with an ad unit id from the AdMob dash.
   // https://developers.google.com/admob/android/test-ads
   // https://developers.google.com/admob/ios/test-ads
-  adUnitId: 'ca-app-pub-3940256099942544/1033173712', // test
-  // adUnitId: 'ca-app-pub-3370394751776686/3290071927',
+  // adUnitId: 'ca-app-pub-3940256099942544/1033173712', // test
+  adUnitId: 'ca-app-pub-3370394751776686/3290071927',
   targetingInfo: targetingInfo,
   listener: context == null ? (MobileAdEvent event) {
     if(event == MobileAdEvent.opened) {
