@@ -46,9 +46,6 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   @override
   void dispose() {
     this.fallingLeaves.dispose();
-    if (this.myAd != null) {
-      this.myAd.dispose();
-    }
     super.dispose();
   }
 
@@ -116,7 +113,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                     color: Color(0xFFff4d4d),
                                     fontWeight: FontWeight.bold)),
                             onPressed: () {
-                              if (!clicked) {
+                              if (!clicked && myAd != null) {
                                 myAd.show(
                                   anchorType: AnchorType.bottom,
                                   anchorOffset: 0.0,

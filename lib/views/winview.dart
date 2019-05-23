@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import '../util/enums.dart';
+import '../util/adInfo.dart';
 
 class WinPage extends StatefulWidget {
   final int mistakes;
@@ -19,6 +21,8 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
   Animation<double> animationFalling;
   Animation colorChange;
   AnimationController colorController;
+  InterstitialAd myAd;
+  bool clicked = false;
   @override
   void initState() {
     this.fallingLeaves =
@@ -39,6 +43,7 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
       parent: this.colorController,
       curve: Curves.easeIn,
     ));
+    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
@@ -123,7 +128,19 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                             style: TextStyle(
                                 color: Color(0xFFff4d4d),
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => startHandler(context, widget.type, skipAd: false),
+                        onPressed: () => () {
+                              if (!clicked && myAd != null) {
+                                myAd.show(
+                                  anchorType: AnchorType.bottom,
+                                  anchorOffset: 0.0,
+                                );
+                                startHandler(context, widget.type,
+                                    skipAd: false);
+                              }
+                              setState(() {
+                                clicked = true;
+                              });
+                            },
                       ),
                       // MaterialButton(
                       //     color: Color(0xFFFFFFFFF),

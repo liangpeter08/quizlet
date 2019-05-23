@@ -37,8 +37,6 @@ InterstitialAd myInterstitial(context) {
               MaterialPageRoute(builder: (context) {
             return QuestionPage(skipAd: false);
           }));});
-
-    
     print("InterstitialAd event is $event");
     }
   } : null,
