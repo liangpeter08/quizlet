@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'dart:async';
-import 'package:firebase_admob/firebase_admob.dart';
 
 import '../style/theme.dart' as Theme;
 import '../util/populate.dart';
@@ -12,6 +11,7 @@ import './winview.dart';
 import './loseview.dart';
 import './mainview.dart';
 import '../util/adInfo.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
@@ -36,7 +36,6 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
   List<String> currentQuestion;
   AnimationState animationState;
   AnimationController fadeAnimationController;
-  InterstitialAd myAd;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -53,7 +52,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              WinPage(mistakes: this.mistakes)));
+                              WinPage(mistakes: this.mistakes, type: widget.type)));
                 } else {
                   Navigator.pushReplacement(
                       context,
@@ -93,17 +92,12 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
     this.fadeAnimationController.forward();
     this.startTimer();
-    myBanner..load();
-    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
   void dispose() {
     this.timer.cancel();
     this.fadeAnimationController.dispose();
-    if (this.myAd != null) {
-      this.myAd.dispose();
-    }
     super.dispose();
   }
 
@@ -126,19 +120,29 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
                 builder: (context) => LosePage(
-                    mistakes: this.mistakes,
-                    index: this.index,
-                    reason: 'mistakes',
-                    type: widget.type,)));
+                      mistakes: this.mistakes,
+                      index: this.index,
+                      reason: 'mistakes',
+                      type: widget.type,
+                    )));
       }
       if (this.index + 1 < this.selectedQuestions.length) {
-        if ((this.index + 1) % 8 == 0) {
-          myAd.show(
-            anchorType: AnchorType.bottom,
-            anchorOffset: 0.0,
+        if ((this.index + 1) % 3 == 0) {
+          // myAd.show(
+          //   anchorType: AnchorType.bottom,
+          //   anchorOffset: 0.0,
+          // );
+          // myAd.dispose();
+          // myAd = myInterstitial(null)..load();
+          // interstitial ad
+
+          FacebookInterstitialAd.loadInterstitialAd(
+            placementId: "YOUR_PLACEMENT_ID",
+            listener: (result, value) {
+              if (result == InterstitialAdResult.LOADED)
+                FacebookInterstitialAd.showInterstitialAd(delay: 0);
+            },
           );
-          myAd.dispose();
-          myAd = myInterstitial(null)..load();
         }
         setState(() {
           ++this.index;
@@ -157,7 +161,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => WinPage(mistakes: this.mistakes)));
+                builder: (context) => WinPage(mistakes: this.mistakes, type:widget.type)));
       }
     });
   }
@@ -178,19 +182,11 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
 
-    myBanner
-      ..show(
-        // Positions the banner ad 60 pixels from the bottom of the screen
-        anchorOffset: 0.0,
-        // Banner Position
-        anchorType: AnchorType.bottom,
-      );
-
     return Scaffold(
         body: Container(
             width: screenWidth,
             height: screenHeight,
-            padding: EdgeInsets.only(bottom: 50),
+            //padding: EdgeInsets.only(bottom: 50),
             decoration: new BoxDecoration(
               gradient: new LinearGradient(
                   colors: [
@@ -303,7 +299,8 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                         selectedButton: this.selectedAnswer,
                         animationState: this.animationState,
                         animationController: this.fadeAnimationController,
-                      )))
+                      ))),
+              Container(child: adBanner),
             ])));
   }
 }

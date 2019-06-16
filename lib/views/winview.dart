@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
 import '../util/starthandler.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import '../util/enums.dart';
 import '../util/adInfo.dart';
 
@@ -21,10 +20,10 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
   Animation<double> animationFalling;
   Animation colorChange;
   AnimationController colorController;
-  InterstitialAd myAd;
   bool clicked = false;
   @override
   void initState() {
+    print('init Win state');
     this.fallingLeaves =
         AnimationController(vsync: this, duration: new Duration(seconds: 3));
     this.colorController =
@@ -43,7 +42,6 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
       parent: this.colorController,
       curve: Curves.easeIn,
     ));
-    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
@@ -128,12 +126,14 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                             style: TextStyle(
                                 color: Color(0xFFff4d4d),
                                 fontWeight: FontWeight.bold)),
-                        onPressed: () => () {
-                              if (!clicked && myAd != null) {
-                                myAd.show(
-                                  anchorType: AnchorType.bottom,
-                                  anchorOffset: 0.0,
-                                );
+                        onPressed: () {
+                          print('Win page retry');
+                              if (!clicked) {
+                                // myAd.show(
+                                //   anchorType: AnchorType.bottom,
+                                //   anchorOffset: 0.0,
+                                // );
+                                // interstitial
                                 startHandler(context, widget.type,
                                     skipAd: false);
                               }
@@ -151,6 +151,8 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                       //             color: Color(0xFFff4d4d),
                       //             fontWeight: FontWeight.bold)),
                       //     onPressed: () => testFunction()),
+                    Spacer(),
+                    Container(child: adBanner),
                     ]),
                   ])));
         });

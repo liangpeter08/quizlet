@@ -4,6 +4,7 @@ import './readcsv.dart';
 import '../views/questionview.dart';
 
 void startHandler(context, String type, {skipAd}) {
+  print('her');
   readcsv(mySelectedProvince).then((retVal) {
     questions = retVal;
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {

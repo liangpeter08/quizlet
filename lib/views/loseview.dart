@@ -4,7 +4,6 @@ import '../style/theme.dart' as Theme;
 
 import './mainview.dart';
 import '../util/starthandler.dart';
-import 'package:firebase_admob/firebase_admob.dart';
 import '../util/adInfo.dart';
 import '../util/enums.dart';
 
@@ -26,7 +25,6 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   AnimationController fallingLeaves;
   Animation<double> animationFalling;
   bool clicked = false;
-  InterstitialAd myAd;
 
   @override
   void initState() {
@@ -39,7 +37,6 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       parent: fallingLeaves,
       curve: Curves.fastOutSlowIn,
     ));
-    myAd = myInterstitial(null)..load();
     super.initState();
   }
 
@@ -113,11 +110,12 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                     color: Color(0xFFff4d4d),
                                     fontWeight: FontWeight.bold)),
                             onPressed: () {
-                              if (!clicked && myAd != null) {
-                                myAd.show(
-                                  anchorType: AnchorType.bottom,
-                                  anchorOffset: 0.0,
-                                );
+                              if (!clicked) {
+                                // myAd.show(
+                                //   anchorType: AnchorType.bottom,
+                                //   anchorOffset: 0.0,
+                                // );
+                                // interstitial
                                 startHandler(context, widget.type, skipAd: false);
                               }
                               setState(() {
@@ -138,6 +136,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                   ]),
                   Spacer(),
                   Spacer(),
+                  Container(child: adBanner),
                 ])),
             Transform(
                 transform: Matrix4.translationValues(
