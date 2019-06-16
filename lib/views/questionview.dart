@@ -53,7 +53,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              WinPage(mistakes: this.mistakes)));
+                              WinPage(mistakes: this.mistakes, type: widget.type)));
                 } else {
                   Navigator.pushReplacement(
                       context,

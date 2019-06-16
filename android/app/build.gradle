@@ -13,7 +13,7 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '17'
+    flutterVersionCode = '20'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -45,7 +45,9 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        ndk{ abiFilters "arm64-v8a" } 
+        // comment out next line for debugging
+        // ndk{ abiFilters "arm64-v8a" } // flutter build apk --release --target-platform android-arm64
+        // ndk{ abiFilters "armeabi-v7a" } // flutter build apk
     }
 
     signingConfigs {

@@ -50,6 +50,16 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   }
 
   homeButton() {
+    if (!clicked && myAd != null) {
+      myAd.show(
+        anchorType: AnchorType.bottom,
+        anchorOffset: 0.0,
+      );
+      startHandler(context, widget.type, skipAd: false);
+    }
+    setState(() {
+      clicked = true;
+    });
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
       return MyApp();
     }));
