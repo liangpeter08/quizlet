@@ -42,6 +42,9 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
       parent: this.colorController,
       curve: Curves.easeIn,
     ));
+    loadInterstitial(() {
+      startHandler(context, widget.type, skipAd: false);
+    });
     super.initState();
   }
 
@@ -128,19 +131,20 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                                 fontWeight: FontWeight.bold)),
                         onPressed: () {
                           print('Win page retry');
-                              if (!clicked) {
-                                // myAd.show(
-                                //   anchorType: AnchorType.bottom,
-                                //   anchorOffset: 0.0,
-                                // );
-                                // interstitial
-                                startHandler(context, widget.type,
-                                    skipAd: false);
-                              }
-                              setState(() {
-                                clicked = true;
-                              });
-                            },
+                          if (!clicked) {
+                            // myAd.show(
+                            //   anchorType: AnchorType.bottom,
+                            //   anchorOffset: 0.0,
+                            // );
+                            // interstitial
+                            if (!showInterstitial()) {
+                              startHandler(context, widget.type, skipAd: false);
+                            }
+                          }
+                          setState(() {
+                            clicked = true;
+                          });
+                        },
                       ),
                       // MaterialButton(
                       //     color: Color(0xFFFFFFFFF),
@@ -151,8 +155,8 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                       //             color: Color(0xFFff4d4d),
                       //             fontWeight: FontWeight.bold)),
                       //     onPressed: () => testFunction()),
-                    Spacer(),
-                    Container(child: adBanner),
+                      Spacer(),
+                      Container(child: adBanner),
                     ]),
                   ])));
         });

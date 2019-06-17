@@ -91,9 +91,20 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     this.fadeAnimationController =
         AnimationController(vsync: this, duration: new Duration(seconds: 1));
     this.fadeAnimationController.forward();
+
     this.startTimer();
+    loadInterstitial(() {
+      setState(() {
+                ++this.index;
+                this.selectedAnswer = -1;
+                this.answerOrder = generateOrder(4);
+                this.currentQuestion = questions[this.selectedQuestions[index]];
+                this.animationState = AnimationState.DEFAULT_STATE;
+              });
+    });
     super.initState();
   }
+
 
   void dispose() {
     this.timer.cancel();
@@ -113,7 +124,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
       });
     }
     Future.delayed(const Duration(seconds: 1), () {
-      if (!this.mounted) return;
+      if (!this.mounted) return null;
 
       if (widget.type == 'Test' && this.mistakes == 6) {
         Navigator.pushReplacement(
@@ -127,22 +138,9 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
                     )));
       }
       if (this.index + 1 < this.selectedQuestions.length) {
-        if ((this.index + 1) % 3 == 0) {
-          // myAd.show(
-          //   anchorType: AnchorType.bottom,
-          //   anchorOffset: 0.0,
-          // );
-          // myAd.dispose();
-          // myAd = myInterstitial(null)..load();
+        if ((this.index + 1) % 8 == 0) {
           // interstitial ad
-
-          FacebookInterstitialAd.loadInterstitialAd(
-            placementId: "YOUR_PLACEMENT_ID",
-            listener: (result, value) {
-              if (result == InterstitialAdResult.LOADED)
-                FacebookInterstitialAd.showInterstitialAd(delay: 0);
-            },
-          );
+          if(showInterstitial()) { return null; }
         }
         setState(() {
           ++this.index;

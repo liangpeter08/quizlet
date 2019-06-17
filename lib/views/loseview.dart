@@ -37,6 +37,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       parent: fallingLeaves,
       curve: Curves.fastOutSlowIn,
     ));
+    loadInterstitial(() {
+      startHandler(context, widget.type, skipAd: false);
+    });
     super.initState();
   }
 
@@ -111,13 +114,12 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                     fontWeight: FontWeight.bold)),
                             onPressed: () {
                               if (!clicked) {
-                                // myAd.show(
-                                //   anchorType: AnchorType.bottom,
-                                //   anchorOffset: 0.0,
-                                // );
-                                // interstitial
-                                startHandler(context, widget.type, skipAd: false);
+                                if(!showInterstitial()) {
+                                   startHandler(context, widget.type, skipAd: false);
                               }
+                                }
+                                // interstitial
+        
                               setState(() {
                                 clicked = true;
                               });
