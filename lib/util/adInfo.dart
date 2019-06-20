@@ -1,44 +1,49 @@
-import 'package:firebase_admob/firebase_admob.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
-import '../views/questionview.dart';
 
-MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
-  keywords: <String>['Canada', 'Citizenship', 'test'],
-  contentUrl: 'https://flutter.io',
-  childDirected: false,
-  testDevices: <String>[], // Android emulators are considered test devices
-);
+bool interstitialLoaded = false;
 
-BannerAd myBanner = BannerAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId:  'ca-app-pub-3940256099942544/6300978111', // test ad
-  // adUnitId: 'ca-app-pub-3370394751776686/1968417247',
-  size: AdSize.banner,
-  targetingInfo: targetingInfo,
-  listener: (MobileAdEvent event) {
-    print("BannerAd event is $event");
+FacebookBannerAd adBanner = FacebookBannerAd(
+  placementId: "520598665142253_520602238475229",
+  bannerSize: BannerSize.STANDARD,
+  listener: (result, value) {
+    switch (result) {
+      case BannerAdResult.ERROR:
+        print("Error: $value");
+        break;
+      case BannerAdResult.LOADED:
+        print("Loaded: $value");
+        break;
+      case BannerAdResult.CLICKED:
+        print("Clicked: $value");
+        break;
+      case BannerAdResult.LOGGING_IMPRESSION:
+        print("Logging Impression: $value");
+        break;
+    }
   },
 );
 
-InterstitialAd myInterstitial(context) {
-  return InterstitialAd(
-  // Replace the testAdUnitId with an ad unit id from the AdMob dash.
-  // https://developers.google.com/admob/android/test-ads
-  // https://developers.google.com/admob/ios/test-ads
-  adUnitId: 'ca-app-pub-3940256099942544/1033173712', // test
-  // adUnitId: 'ca-app-pub-3370394751776686/3290071927',
-  targetingInfo: targetingInfo,
-  listener: context == null ? (MobileAdEvent event) {
-    if(event == MobileAdEvent.opened) {
-    print(event);
-    Future.delayed(const Duration(seconds: 1), () {return Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return QuestionPage(skipAd: false);
-          }));});
-    print("InterstitialAd event is $event");
-    }
-  } : null,
-);
+void loadInterstitial(Function callback) {
+  FacebookInterstitialAd.loadInterstitialAd(
+    placementId: "520598665142253_520650845137035",
+    listener: (result, value) {
+      print("Interstitial Ad: $result --> $value");
+      if (result == InterstitialAdResult.LOADED) interstitialLoaded = true;
+
+      /// Once an Interstitial Ad has been dismissed and becomes invalidated,
+      /// load a fresh Ad by calling this function.
+      if (result == InterstitialAdResult.DISMISSED &&
+          value["invalidated"] == true) {
+        interstitialLoaded = false;
+        callback();
+        loadInterstitial(callback);
+      }
+    },
+  );
+}
+
+bool showInterstitial() {
+  FacebookInterstitialAd.showInterstitialAd();
+  return interstitialLoaded;
 }

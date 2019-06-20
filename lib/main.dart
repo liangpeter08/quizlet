@@ -1,17 +1,15 @@
-import 'package:firebase_admob/firebase_admob.dart';
+import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
-// import 'package:firebase_admob/firebase_admob.dart';
-// import 'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 
 
 import './views/mainview.dart';
 
 void main() async {
-  // FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-3370394751776686~7650142851');
-  //       SystemChrome.setPreferredOrientations([
-  //       DeviceOrientation.portraitUp,
-  //       DeviceOrientation.portraitDown,
-  //     ]);
+  FacebookAudienceNetwork.init(
+    // testingId: '746e1920-e104-4f2e-9ff7-3eb8d32f2f2b',
+    testingId: '0c8948b7-d568-4554-a471-0f23bffc04f7',
+);
   return runApp(MaterialApp(
     title: 'Canadian Citizenship Test 2019',
     theme: ThemeData(
