@@ -2,7 +2,7 @@ import 'package:facebook_audience_network/facebook_audience_network.dart';
 import 'package:flutter/material.dart';
 
 
-import './views/mainview.dart';
+import './views/mainView/mainview.dart';
 
 void main() async {
   FacebookAudienceNetwork.init(

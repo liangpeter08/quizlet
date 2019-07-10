@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:new_quizlet/util/enums.dart';
-import '../components/themeContainer.dart';
+import '../../components/themeContainer.dart';
 
-import '../util/starthandler.dart';
+import './beginButton.dart';
+import './logo.dart';
+
 
 class MyApp extends StatefulWidget {
   @override
@@ -18,9 +20,6 @@ class _MyApp extends State<MyApp> {
   double screenWidth;
   Container title;
   Container provinceSelect;
-  Expanded logo;
-  Container quizButton;
-  Container practiceButton;
 
   @override
   void initState() {
@@ -83,58 +82,6 @@ class _MyApp extends State<MyApp> {
             data: Theme.of(context).copyWith(
                 canvasColor: Color(0xFFff4d4d), brightness: Brightness.dark),
             child: pronvinceOptions));
-
-    this.logo = Expanded(
-        child: Container(
-            padding: EdgeInsets.only(top: 10),
-            //color: Color(0xFFFFFF00),
-            child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-              Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
-                Container(
-                    //color: Color(0xFF00FF00),
-                    child: Image.asset('assets/logo7medium.png', width: 50.0)),
-                Container(
-                  padding: EdgeInsets.only(right: 15),
-                  child: Text(
-                    'Quetzal Labs',
-                    style: TextStyle(
-                        color: Color(0xFFFFFFFF),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12),
-                  ),
-                ),
-              ])
-            ])));
-
-    this.quizButton = Container(
-        margin: EdgeInsets.only(top: screenHeight / 20),
-        child: ButtonTheme(
-            child: MaterialButton(
-          minWidth: screenWidth / 4,
-          color: Color(0xFFFFFFFFF),
-          elevation: 4.0,
-          splashColor: Color(0xFFff9999),
-          child: Text('Begin Test',
-              style: TextStyle(
-                  color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-          onPressed: () => startHandler(context, 'Test', skipAd: true),
-        )));
-
-    this.practiceButton =  Container(
-              margin: EdgeInsets.only(top: screenHeight / 100),
-              child: ButtonTheme(
-                  minWidth: screenWidth / 4,
-                  child: MaterialButton(
-                    color: Color(0xFFFFFFFFF),
-                    elevation: 4.0,
-                    splashColor: Color(0xFFff9999),
-                    child: Text('Practice',
-                        style: TextStyle(
-                            color: Color(0xFFff4d4d),
-                            fontWeight: FontWeight.bold)),
-                    onPressed: () =>
-                        startHandler(context, 'Practice', skipAd: true),
-                  )));
   }
 
   Widget build(BuildContext context) {
@@ -151,11 +98,11 @@ class _MyApp extends State<MyApp> {
           Image.asset('assets/mapleleaf.png', height: screenHeight / 5),
           this.title,
           this.provinceSelect,
-          this.quizButton,
-          this.practiceButton,
-          this.logo,
+          BeginButton(buttonName: 'Begin Test', startType: 'Test'),
+          BeginButton(buttonName: 'Practice', startType: 'Practice'),
+          Logo(),
         ]);
 
-    return themeContainer(body: bodyWrapper, context: context);
+    return ThemeBodyContainer(bodyWrapper);
   }
 }

@@ -9,7 +9,7 @@ import '../util/printtime.dart';
 import '../util/enums.dart';
 import './winview.dart';
 import './loseview.dart';
-import './mainview.dart';
+import './mainView/mainview.dart';
 import '../util/adInfo.dart';
 
 class QuestionPage extends StatefulWidget {

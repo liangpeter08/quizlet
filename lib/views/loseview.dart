@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../style/theme.dart' as Theme;
 
-import './mainview.dart';
 import '../util/starthandler.dart';
 import '../util/adInfo.dart';
 import '../util/enums.dart';

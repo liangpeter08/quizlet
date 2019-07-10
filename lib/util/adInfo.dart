@@ -1,5 +1,4 @@
 import 'package:facebook_audience_network/facebook_audience_network.dart';
-import 'package:flutter/material.dart';
 
 bool interstitialLoaded = false;
 
