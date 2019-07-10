@@ -50,19 +50,15 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   }
 
   homeButton() {
-    if (!clicked && myAd != null) {
-      myAd.show(
-        anchorType: AnchorType.bottom,
-        anchorOffset: 0.0,
-      );
-      startHandler(context, widget.type, skipAd: false);
+    if (!clicked) {
+      if (!showInterstitial()) {
+        startHandler(context, widget.type, skipAd: false);
+      }
     }
+    // interstitial
     setState(() {
       clicked = true;
     });
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return MyApp();
-    }));
   }
 
   @override
@@ -124,12 +120,13 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                     fontWeight: FontWeight.bold)),
                             onPressed: () {
                               if (!clicked) {
-                                if(!showInterstitial()) {
-                                   startHandler(context, widget.type, skipAd: false);
-                              }
+                                if (!showInterstitial()) {
+                                  startHandler(context, widget.type,
+                                      skipAd: false);
                                 }
-                                // interstitial
-        
+                              }
+                              // interstitial
+
                               setState(() {
                                 clicked = true;
                               });

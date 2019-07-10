@@ -11,7 +11,6 @@ import './winview.dart';
 import './loseview.dart';
 import './mainview.dart';
 import '../util/adInfo.dart';
-import 'package:facebook_audience_network/facebook_audience_network.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.

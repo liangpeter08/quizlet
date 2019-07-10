@@ -14,8 +14,6 @@ String mySelectedProvince = 'Ontario';
 
 
 void setTextSize(screenWidth, screenHeight) {
-  print(screenWidth);
-  print(screenHeight);
   if(screenWidth < 340 || screenHeight < 540) {
     textSize = 10;
   }
