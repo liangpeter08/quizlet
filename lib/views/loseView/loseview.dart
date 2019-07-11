@@ -1,10 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../style/theme.dart' as Theme;
+import '../../style/theme.dart' as Theme;
+import '../loseView/homeButton.dart';
+import '../loseView/failText.dart';
+import '../loseView/studyText.dart';
+import '../mainView/mainView.dart';
 
-import '../util/starthandler.dart';
-import '../util/adInfo.dart';
-import '../util/enums.dart';
+
+import '../../util/starthandler.dart';
+import '../../util/adInfo.dart';
 
 const TOTAL_MISTAKES = 5;
 
@@ -51,7 +55,10 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
   homeButton() {
     if (!clicked) {
       if (!showInterstitial()) {
-        startHandler(context, widget.type, skipAd: false);
+        //startHandler(context, widget.type, skipAd: false);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+      return MyApp();
+    }));
       }
     }
     // interstitial
@@ -85,26 +92,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                 ),
                 child: Column(children: <Widget>[
                   Spacer(),
-                  Container(
-                    child: Text('Let\'s Study Harder!',
-                        style: TextStyle(
-                            fontFamily: 'font2',
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 30)),
-                  ),
+                  StudyText(),
                   Spacer(),
-                  Container(
-                    child: Text(
-                        widget.reason == 'mistakes'
-                            ? 'You\'ve made ${widget.mistakes} mistakes,\nthe exam only allows for ' +
-                                TOTAL_MISTAKES.toString()
-                            : 'Your score was ${(widget.index - widget.mistakes)} out of $PASSING_GRADE.\nThe required passing grade is 75%',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'font2',
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 22)),
-                  ),
+                  FailText(reason: widget.reason, mistakes: widget.mistakes, index: widget.index),
                   Container(padding: EdgeInsets.only(top: screenHeight / 10)),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Container(
@@ -124,23 +114,11 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                                       skipAd: false);
                                 }
                               }
-                              // interstitial
-
-                              setState(() {
+                                setState(() {
                                 clicked = true;
-                              });
-                            })),
-                    Container(
-                        margin: EdgeInsets.all(5),
-                        child: MaterialButton(
-                            color: Color(0xFFFFFFFFF),
-                            elevation: 4.0,
-                            splashColor: Color(0xFFff9999),
-                            child: Text('Home',
-                                style: TextStyle(
-                                    color: Color(0xFFff4d4d),
-                                    fontWeight: FontWeight.bold)),
-                            onPressed: homeButton))
+                                });
+                              })),
+                              HomeButton(buttonName: 'Home', myOnClick:homeButton),
                   ]),
                   Spacer(),
                   Spacer(),

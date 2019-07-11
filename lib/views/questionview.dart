@@ -8,7 +8,7 @@ import '../util/answerbutton.dart';
 import '../util/printtime.dart';
 import '../util/enums.dart';
 import './winview.dart';
-import './loseview.dart';
+import './loseView/loseview.dart';
 import './mainView/mainview.dart';
 import '../util/adInfo.dart';
 
