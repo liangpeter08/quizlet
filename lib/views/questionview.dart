@@ -125,7 +125,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     Future.delayed(const Duration(seconds: 1), () {
       if (!this.mounted) return null;
 
-      if (widget.type == 'Test' && this.mistakes == 6) {
+      if (widget.type == 'Test' && this.mistakes == 1) {
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
