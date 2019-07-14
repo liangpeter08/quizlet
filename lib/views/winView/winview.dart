@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../style/theme.dart' as Theme;
-
-import '../util/starthandler.dart';
-import '../util/enums.dart';
-import '../util/adInfo.dart';
+import '../../style/theme.dart' as Theme;
+import '../winView/wintext.dart';
+import '../winView/passtext.dart';
+import '../../util/starthandler.dart';
+import '../../util/enums.dart';
+import '../../util/adInfo.dart';
 
 class WinPage extends StatefulWidget {
   final int mistakes;
@@ -99,26 +100,11 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
                                 )))),
                     Column(children: <Widget>[
                       Container(
-                          padding: EdgeInsets.only(top: screenHeight * 0.27)),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text('You\'ve\nPassed!',
-                            style: TextStyle(
-                                fontFamily: 'font2',
-                                color: colorChange.value,
-                                fontSize: 40)),
-                      ),
+                          padding: EdgeInsets.only(top: screenHeight * 0.25)),
+                      PassText(this.colorChange),
                       Container(
                           padding: EdgeInsets.only(top: screenHeight / 10)),
-                      Container(
-                        child: Text(
-                            'Your score was ${(PASSING_GRADE - widget.mistakes)} out of 20. Keep Studying! Remember, practice makes perfect!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontFamily: 'font2',
-                                color: Color(0xFFFFFFFF),
-                                fontSize: 22)),
-                      ),
+                      WinText(widget.mistakes),
                       Container(
                           padding: EdgeInsets.only(top: screenHeight * 0.05)),
                       MaterialButton(

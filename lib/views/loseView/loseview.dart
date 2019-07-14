@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../style/theme.dart' as Theme;
-import '../loseView/homeButton.dart';
+import '../loseView/exitbutton.dart';
 import '../loseView/failText.dart';
 import '../loseView/studyText.dart';
 import '../mainView/mainView.dart';
@@ -52,13 +52,19 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  homeButton() {
+  buttonOnPressed(String caller) {
     if (!clicked) {
+      print("here!");
       if (!showInterstitial()) {
-        //startHandler(context, widget.type, skipAd: false);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-      return MyApp();
-    }));
+        if (caller == 'Retry'){
+          print(caller);
+          startHandler(context, widget.type, skipAd: false);
+        } else {
+          print(caller);
+          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+            return MyApp();
+          }));
+        }
       }
     }
     // interstitial
@@ -97,28 +103,8 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
                   FailText(reason: widget.reason, mistakes: widget.mistakes, index: widget.index),
                   Container(padding: EdgeInsets.only(top: screenHeight / 10)),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    Container(
-                        margin: EdgeInsets.all(5),
-                        child: MaterialButton(
-                            color: Color(0xFFFFFFFFF),
-                            elevation: 4.0,
-                            splashColor: Color(0xFFff9999),
-                            child: Text('Retry',
-                                style: TextStyle(
-                                    color: Color(0xFFff4d4d),
-                                    fontWeight: FontWeight.bold)),
-                            onPressed: () {
-                              if (!clicked) {
-                                if (!showInterstitial()) {
-                                  startHandler(context, widget.type,
-                                      skipAd: false);
-                                }
-                              }
-                                setState(() {
-                                clicked = true;
-                                });
-                              })),
-                              HomeButton(buttonName: 'Home', myOnClick:homeButton),
+                    ExitButton(buttonName: 'Retry', myOnClick:buttonOnPressed),
+                    ExitButton(buttonName: 'Home', myOnClick:buttonOnPressed),
                   ]),
                   Spacer(),
                   Spacer(),

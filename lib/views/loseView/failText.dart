@@ -9,18 +9,16 @@ class FailText extends StatelessWidget {
   const FailText({this.reason, this.mistakes, this.index});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Container(
-                    child: Text(
-                        this.reason == 'mistakes'
-                            ? 'You\'ve made ${this.mistakes} mistakes,\nthe exam only allows for ' +
-                                TOTAL_MISTAKES.toString()
-                            : 'Your score was ${(this.index - this.mistakes)} out of $PASSING_GRADE.\nThe required passing grade is 75%',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'font2',
-                            color: Color(0xFFFFFFFF),
-                            fontSize: 22)),
-                  );
+      child: Text(
+          this.reason == 'mistakes'
+              ? 'You\'ve made ${this.mistakes} mistakes,\nthe exam only allows for ' +
+                  TOTAL_MISTAKES.toString()
+              : 'Your score was ${(this.index - this.mistakes)} out of $PASSING_GRADE.\nThe required passing grade is 75%',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontFamily: 'font2', color: Color(0xFFFFFFFF), fontSize: 22)),
+    );
   }
 }
