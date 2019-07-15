@@ -52,18 +52,14 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
 
   buttonOnPressed(String caller) {
     if (!clicked) {
-      print("here!");
-      if (showInterstitial()) {
-        if (caller == 'Retry') {
-          print(caller);
-          startHandler(context, widget.type, skipAd: false);
-        } else {
-          print(caller);
-          Navigator.pushReplacement(context,
-              MaterialPageRoute(builder: (context) {
-            return MyApp();
-          }));
-        }
+      showInterstitial();
+      if (caller == 'Retry') {
+        startHandler(context, widget.type, skipAd: false);
+      } else {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return MyApp();
+        }));
       }
     }
     // interstitial
@@ -92,6 +88,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       Spacer(),
       Container(child: adBanner),
     ]);
-    return LoseAnimation(content:ThemeBodyContainer(body), fallingLeaves: fallingLeaves, animationFalling: animationFalling);
+    return LoseAnimation(
+        content: ThemeBodyContainer(body),
+        fallingLeaves: fallingLeaves,
+        animationFalling: animationFalling);
   }
 }
