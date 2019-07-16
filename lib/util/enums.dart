@@ -3,7 +3,7 @@ enum AnimationState {
   SHOW_ANSWER,
 }
 
-const int TEST_LENGTH = 20;
+const int TEST_LENGTH = 2;
 List<List<String>> questions;
 const int TEST_TIME_LIMIT = 30 * 60;
 double textSize = 15;
