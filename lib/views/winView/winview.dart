@@ -6,6 +6,7 @@ import '../winView/passtext.dart';
 import '../loseView/exitbutton.dart';
 import '../../util/starthandler.dart';
 import '../../util/adInfo.dart';
+import '../mainView/mainview.dart';
 
 class WinPage extends StatefulWidget {
   final int mistakes;
@@ -57,12 +58,20 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
   }
 
   buttonOnPressed(String caller) {
-    print('Win page retry');
     if (!clicked) {
-      if (!showInterstitial()) {
-        startHandler(context, widget.type, skipAd: false);
+      if(caller == 'Home') {
+        Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) {
+            return MyApp();
+          }));
+        return;
+      } else {
+        if(!showInterstitial()) {
+          startHandler(context, widget.type, skipAd: false);
+        }
       }
     }
+    // interstitial
     setState(() {
       clicked = true;
     });
@@ -71,25 +80,22 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
     Column body = Column(children: <Widget>[
-    Container(
-        padding: EdgeInsets.only(top: screenHeight * 0.25)),
-    PassText(this.colorChange),
-    Container(
-        padding: EdgeInsets.only(top: screenHeight / 10)),
-    WinText(widget.mistakes),
-    Container(
-        padding: EdgeInsets.only(top: screenHeight * 0.05)),
-    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-      ExitButton(buttonName: 'Retry', myOnClick: buttonOnPressed),
-      ExitButton(buttonName: 'Home', myOnClick: buttonOnPressed),
-    ]),
-    Spacer(),
-    Container(child: adBanner),
-  ]);
+      Container(padding: EdgeInsets.only(top: screenHeight * 0.25)),
+      PassText(this.colorChange),
+      Container(padding: EdgeInsets.only(top: screenHeight / 10)),
+      WinText(widget.mistakes),
+      Container(padding: EdgeInsets.only(top: screenHeight * 0.05)),
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        ExitButton(buttonName: 'Retry', myOnClick: buttonOnPressed),
+        ExitButton(buttonName: 'Home', myOnClick: buttonOnPressed),
+      ]),
+      Spacer(),
+      Container(child: adBanner),
+    ]);
 
-  return WinAnimation(
-    content: ThemeBodyContainer(body),
-    fallingLeaves: fallingLeaves,
-    animationFalling: animationFalling);
+    return WinAnimation(
+        content: ThemeBodyContainer(body),
+        fallingLeaves: fallingLeaves,
+        animationFalling: animationFalling);
   }
 }

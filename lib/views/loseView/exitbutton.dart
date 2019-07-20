@@ -16,6 +16,6 @@ class ExitButton extends StatelessWidget {
             child: Text(buttonName,
                 style: TextStyle(
                     color: Color(0xFFff4d4d), fontWeight: FontWeight.bold)),
-            onPressed: () => myOnClick(buttonName)));
+            onPressed: () { print('clicked' + buttonName); this.myOnClick(this.buttonName);}));
   }
 }

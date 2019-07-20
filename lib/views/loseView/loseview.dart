@@ -40,7 +40,9 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       parent: fallingLeaves,
       curve: Curves.fastOutSlowIn,
     ));
-    loadInterstitial(() {});
+    loadInterstitial(() {
+      startHandler(context, widget.type, skipAd: false);
+    });
     super.initState();
   }
 
@@ -52,14 +54,16 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
 
   buttonOnPressed(String caller) {
     if (!clicked) {
-      showInterstitial();
-      if (caller == 'Retry') {
-        startHandler(context, widget.type, skipAd: false);
-      } else {
+      if(caller == 'Home') {
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return MyApp();
-        }));
+              MaterialPageRoute(builder: (context) {
+            return MyApp();
+          }));
+        return;
+      } else {
+        if(!showInterstitial()) {
+          startHandler(context, widget.type, skipAd: false);
+        }
       }
     }
     // interstitial
