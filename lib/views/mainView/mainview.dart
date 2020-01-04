@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:new_quizlet/util/enums.dart';
 import '../../components/themeContainer.dart';
+import '../../util/StoragePreference.dart';
 
 import './beginButton.dart';
 import './logo.dart';
@@ -66,6 +67,7 @@ class _MyApp extends State<MyApp> {
         }).toList(),
         onChanged: (selectedProvince) {
           mySelectedProvince = selectedProvince;
+          StoragePreference.setRegion(selectedProvince);
           setState(() {
             province = selectedProvince;
           });
@@ -82,6 +84,16 @@ class _MyApp extends State<MyApp> {
             data: Theme.of(context).copyWith(
                 canvasColor: Color(0xFFff4d4d), brightness: Brightness.dark),
             child: pronvinceOptions));
+    
+    // load region preference
+    StoragePreference.getRegion().then((item) {
+      print('stored region: ${item.toString()}');
+      if (this.province != item) {
+        setState(() {
+          this.province = item;
+        });
+      }
+    });
   }
 
   Widget build(BuildContext context) {
