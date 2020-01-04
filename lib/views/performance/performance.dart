@@ -5,6 +5,7 @@ import '../../util/StoragePreference.dart';
 import '../loseView/exitbutton.dart';
 import '../mainView/mainview.dart';
 import '../../util/adInfo.dart';
+import '../../style/theme.dart';
 
 class Performance extends StatefulWidget {
 
@@ -64,7 +65,7 @@ class _LineChartSample2State extends State<Performance> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(padding: EdgeInsets.all(20), child: Text('Performance',
+        Container(padding: EdgeInsets.all(20), child: Text('Your Score Tracker',
         style: TextStyle(fontFamily: 'font2', fontSize: 28,
                                   color: Color(0xFFFFFFFF)))),
         AspectRatio(
@@ -74,7 +75,7 @@ class _LineChartSample2State extends State<Performance> {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(18),
                 ),
-                color: const Color(0xff232d37)),
+                color: const Color(0xFFffcdbd)),
             child: Padding(
               padding: const EdgeInsets.only(
                   right: 18.0, left: 12.0, top: 24, bottom: 12),
@@ -92,6 +93,7 @@ class _LineChartSample2State extends State<Performance> {
 
   LineChartData mainData() {
     return LineChartData(
+      backgroundColor: Color(0xFFff9977),
       gridData: FlGridData(
         show: true,
         drawVerticalLine: true,
