@@ -23,8 +23,10 @@ class QandA extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     if( this.currentQuestion.length == 0) return Container();
     List<Widget> questionAndAnswer = new List<Widget>.generate(4, (i) {
+      double textSizeScale = currentQuestion[answerOrder[i]].length > 50 ? textSize - 2: textSize;
+
       return SizedBox(
-        height: MediaQuery.of(context).size.height * 0.10,
+        height: MediaQuery.of(context).size.height * (currentQuestion[answerOrder[i]].length > 100 ? 0.15 : 0.10),
         child: Container(
           width: MediaQuery.of(context).size.width * 88 / 100,
           child:
@@ -43,7 +45,7 @@ class QandA extends StatelessWidget {
                     currentQuestion[answerOrder[i]],
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                        fontSize: textSize,
+                        fontSize: textSizeScale,
                         fontFamily: 'font2',
                         color: Color(0xFF3a3a3a),
                         fontWeight: FontWeight.normal),
@@ -60,9 +62,6 @@ class QandA extends StatelessWidget {
         questionAndAnswer.insert(2, Spacer());
             questionAndAnswer.insert(1, Spacer());
     return
-        // FittedBox(
-        //   fit: BoxFit.fitHeight,
-        //   child:
         FadeTransition(
             opacity: CurvedAnimation(
                 parent: this.animationController, curve: Curves.easeOut),
@@ -84,9 +83,7 @@ class QandA extends StatelessWidget {
                                   maxLines: 3,))),
                 Expanded(child: Column(children: questionAndAnswer)),
                 ]
-                    // )
                     ))
-            // )
             );
   }
 }
