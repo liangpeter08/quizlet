@@ -11,7 +11,8 @@ import '../mainView/mainview.dart';
 class WinPage extends StatefulWidget {
   final int mistakes;
   final String type;
-  WinPage({this.mistakes, this.type});
+  final int total;
+  WinPage({this.mistakes, this.type, this.total});
   @override
   State<StatefulWidget> createState() {
     return _WinState();
@@ -83,7 +84,7 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
       Container(padding: EdgeInsets.only(top: screenHeight * 0.25)),
       PassText(this.colorChange),
       Container(padding: EdgeInsets.only(top: screenHeight / 10)),
-      WinText(widget.mistakes),
+      WinText(widget.mistakes, widget.total),
       Container(padding: EdgeInsets.only(top: screenHeight * 0.05)),
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ExitButton(buttonName: 'Retry', myOnClick: buttonOnPressed),

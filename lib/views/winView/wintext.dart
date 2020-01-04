@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../util/enums.dart';
 
 class WinText extends StatelessWidget {
   final int mistakes;
-  const WinText(this.mistakes);
+  final int index; // total questions
+  const WinText(this.mistakes, this.index);
 
   @override
   Widget build(BuildContext context){
@@ -12,7 +12,7 @@ class WinText extends StatelessWidget {
     return Container(
       padding: EdgeInsets.only(top: screenHeight * 0.04),
       child: Text(
-          'Your score was ${(PASSING_GRADE - this.mistakes)} out of 20. Keep Studying! Remember, practice makes perfect!',
+          'Your score was ${(this.index + 1 - this.mistakes)} out of ${this.index + 1}. Keep Studying! Remember, practice makes perfect!',
           textAlign: TextAlign.center,
           style: TextStyle(
               fontFamily: 'font2',

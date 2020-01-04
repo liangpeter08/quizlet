@@ -11,6 +11,7 @@ import '../loseView/loseview.dart';
 import '../../util/adInfo.dart';
 import './headerView.dart';
 import './questionBodyView.dart';
+import '../../util/StoragePreference.dart';
 
 class QuestionPage extends StatefulWidget {
   // This widget is the root of your application.
@@ -71,6 +72,9 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+
+    StoragePreference.getScore().then((scores) => print('stored scores: ${scores.toString()}'));
+
     this.index = 0;
     this.mistakes = 0;
     this.selectedAnswer = -1;
@@ -110,7 +114,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  onClick(int selected, int csvColNum) {
+  onClick(int selected, int csvColNum) async {
     setState(() {
       this.selectedAnswer = selected;
     });
@@ -121,10 +125,16 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
         ++this.mistakes;
       });
     }
+
     Future.delayed(const Duration(seconds: 1), () {
       if (!this.mounted) return null;
 
       if (widget.type == 'Test' && this.mistakes == 6) {
+        String score = (mistakes / (this.index + 1)).toString();
+        print(score);
+        StoragePreference.setScore(score);
+        
+
         Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -160,7 +170,7 @@ class _QuestionState extends State<QuestionPage> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    WinPage(mistakes: this.mistakes, type: widget.type)));
+                    WinPage(mistakes: this.mistakes, type: widget.type, total: this.index)));
       }
     });
   }
