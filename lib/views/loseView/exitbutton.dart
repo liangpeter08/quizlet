@@ -7,8 +7,9 @@ class ExitButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
     return Container(
-        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.only(top: screenHeight / 40, right: 10),
         child: MaterialButton(
             color: Color(0xFFFFFFFFF),
             elevation: 4.0,

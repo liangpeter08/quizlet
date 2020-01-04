@@ -7,6 +7,7 @@ import '../loseView/exitbutton.dart';
 import '../../util/starthandler.dart';
 import '../../util/adInfo.dart';
 import '../mainView/mainview.dart';
+import '../mainView/beginButton.dart';
 
 class WinPage extends StatefulWidget {
   final int mistakes;
@@ -89,6 +90,7 @@ class _WinState extends State<WinPage> with TickerProviderStateMixin {
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ExitButton(buttonName: 'Retry', myOnClick: buttonOnPressed),
         ExitButton(buttonName: 'Home', myOnClick: buttonOnPressed),
+        BeginButton(buttonName: 'View Scores', startType: 'Performance'),
       ]),
       Spacer(),
       Container(child: adBanner),

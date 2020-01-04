@@ -5,6 +5,7 @@ import '../loseView/exitbutton.dart';
 import '../loseView/failText.dart';
 import '../loseView/studyText.dart';
 import '../mainView/mainView.dart';
+import '../mainView/beginButton.dart';
 
 import '../../util/starthandler.dart';
 import '../../util/adInfo.dart';
@@ -87,6 +88,7 @@ class _LoseState extends State<LosePage> with TickerProviderStateMixin {
       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         ExitButton(buttonName: 'Retry', myOnClick: buttonOnPressed),
         ExitButton(buttonName: 'Home', myOnClick: buttonOnPressed),
+        BeginButton(buttonName: 'Scores', startType: 'Performance'),
       ]),
       Spacer(),
       Spacer(),

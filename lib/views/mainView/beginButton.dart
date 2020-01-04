@@ -11,7 +11,7 @@ class BeginButton extends StatelessWidget {
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
     return  Container(
-        margin: EdgeInsets.only(top: screenHeight / 20),
+        padding: EdgeInsets.only(top: screenHeight / 40),
         child: ButtonTheme(
             child: MaterialButton(
           minWidth: screenWidth / 4,

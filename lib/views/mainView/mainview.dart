@@ -112,6 +112,7 @@ class _MyApp extends State<MyApp> {
           this.provinceSelect,
           BeginButton(buttonName: 'Begin Test', startType: 'Test'),
           BeginButton(buttonName: 'Practice', startType: 'Practice'),
+          BeginButton(buttonName: 'View Scores', startType: 'Performance'),
           Logo(),
         ]);
 
