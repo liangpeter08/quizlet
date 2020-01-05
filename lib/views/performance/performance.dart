@@ -29,11 +29,13 @@ class _LineChartSample2State extends State<Performance> {
 
 
   _LineChartSample2State() {
+    List<FlSpot> _data = new List<FlSpot>();
+    _data.add(FlSpot(0,0));
+    this.data = _data;
         // load region preference
     StoragePreference.getScore().then((item) {
       print('stored scores: ${item.toString()}');
-        List<FlSpot> _data = new List<FlSpot>();
-        _data.add(FlSpot(0,0));
+
         for (int i = 0; i < item.length; i++) {
           _data.add(FlSpot((i + 1).toDouble(), double.parse(item[i]) * 10));
         }
