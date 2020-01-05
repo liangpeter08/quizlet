@@ -33,8 +33,9 @@ class _LineChartSample2State extends State<Performance> {
     StoragePreference.getScore().then((item) {
       print('stored scores: ${item.toString()}');
         List<FlSpot> _data = new List<FlSpot>();
+        _data.add(FlSpot(0,0));
         for (int i = 0; i < item.length; i++) {
-          _data.add(FlSpot(i.toDouble(), double.parse(item[i]) * 10));
+          _data.add(FlSpot((i + 1).toDouble(), double.parse(item[i]) * 10));
         }
         setState(() {
           this.data = _data;

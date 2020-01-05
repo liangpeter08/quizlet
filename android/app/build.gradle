@@ -13,7 +13,7 @@ if (flutterRoot == null) {
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
-    flutterVersionCode = '20'
+    flutterVersionCode = '32'
 }
 
 def flutterVersionName = localProperties.getProperty('flutter.versionName')
@@ -30,41 +30,6 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
-// android {
-//     compileSdkVersion 28
-
-//     lintOptions {
-//         disable 'InvalidPackage'
-//     }
-
-//     defaultConfig {
-//         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-//         applicationId "com.quetzalLab.canadian_citizenship"
-//         minSdkVersion 16
-//         targetSdkVersion 28
-//         versionCode flutterVersionCode.toInteger()
-//         versionName flutterVersionName
-//         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-//         // comment out next line for debugging
-//         // ndk{ abiFilters "arm64-v8a" } // flutter build apk --release --target-platform android-arm64
-//         // ndk{ abiFilters "armeabi-v7a" } // flutter build apk
-//     }
-
-//     signingConfigs {
-//         release {
-//             keyAlias keystoreProperties['keyAlias']
-//             keyPassword keystoreProperties['keyPassword']
-//             storeFile file(keystoreProperties['storeFile'])
-//             storePassword keystoreProperties['storePassword']
-//         }
-//     }
-//     buildTypes {
-//         release {
-//             signingConfig signingConfigs.release
-//         }
-//     }
-// }
-
 android {
     compileSdkVersion 28
 
@@ -74,22 +39,57 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.new_quizlet"
+        applicationId "com.quetzalLab.canadian_citizenship"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        // comment out next line for debugging
+        ndk{ abiFilters "arm64-v8a" } // flutter build apk --release --target-platform android-arm64
+        // ndk{ abiFilters "armeabi-v7a" } // flutter build apk (first)
     }
 
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
         }
     }
 }
+
+// android {
+//     compileSdkVersion 28
+
+//     lintOptions {
+//         disable 'InvalidPackage'
+//     }
+
+//     defaultConfig {
+//         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+//         applicationId "com.example.new_quizlet"
+//         minSdkVersion 16
+//         targetSdkVersion 28
+//         versionCode flutterVersionCode.toInteger()
+//         versionName flutterVersionName
+//         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+//     }
+
+//     buildTypes {
+//         release {
+//             // TODO: Add your own signing config for the release build.
+//             // Signing with the debug keys for now, so `flutter run --release` works.
+//             signingConfig signingConfigs.debug
+//         }
+//     }
+// }
 
 flutter {
     source '../..'
